@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "PTIT: Xem website trong Edge",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://127.0.0.1:8765",
+      "webRoot": "${workspaceFolder}/dist",
+      "preLaunchTask": "PTIT: Chạy website"
+    }
+  ]
+}
