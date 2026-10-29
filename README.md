@@ -38,10 +38,23 @@ Dừng máy chủ bằng **Tasks: Terminate Task** hoặc **Ctrl+C** tại termi
 | `dist/app.js` | Bộ lọc, tìm kiếm, lịch và chi tiết đội |
 | `dist/data.json` | Đội và cầu thủ từ danh sách đăng ký |
 | `.vscode/` | Task máy chủ và cấu hình chạy thử |
+| `vercel.json` | Cấu hình Vercel phục vụ thư mục `dist` tại đường dẫn gốc |
 | `.openai/hosting.json` | Cấu hình website Sites hiện tại |
 
 Để sửa tên hoặc danh sách cầu thủ, cập nhật `dist/data.json`. Cặp đấu loại trực tiếp hiện được khai báo trong `dist/app.js` và `dist/index.html`.
 Nguồn là file Excel đăng ký và hai ảnh phân bảng/nhánh đấu do người dùng cung cấp.
+
+## Triển khai lên Vercel
+
+Website: <https://hoithao20-11.vercel.app/>.
+
+Kết nối Vercel với repository này và nhánh `main`. **Root Directory** phải là thư mục gốc của repository (`.` hoặc để trống).
+Tệp `vercel.json` đã chọn **Framework Preset: Other**, bỏ qua bước cài đặt/build và đặt **Output Directory: `dist`**.
+Website là HTML/CSS/JavaScript tĩnh nên không cần `npm install` hay `npm run build`.
+
+Vercel cần xuất bản nội dung của `dist`, để `index.html`, `app.js`, `style.css` và `data.json` nằm ngay dưới URL gốc.
+Nếu phục vụ nguyên repository, `/` sẽ báo 404 trong khi `/dist/index.html` vẫn mở được.
+Sau khi push, chờ deployment từ commit mới hoàn tất. Nếu không có deployment tự động, chọn **Redeploy** từ phiên bản mã nguồn mới nhất.
 
 ## Git
 
