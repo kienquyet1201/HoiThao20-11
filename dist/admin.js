@@ -163,7 +163,7 @@ async function boot() {
     const setup = await request('/api/setup');
     if (!setup.configured) { renderSignIn(false, setup.missing || []); return; }
     const session = await request('/api/auth/session');
-    state.user = session.user || null;
+    state.user = session?.user || null;
     if (!state.user) { renderSignIn(true); return; }
     try { await loadEditor(); }
     catch (error) {
@@ -409,5 +409,3 @@ window.addEventListener('beforeunload', event => {
 });
 
 boot();
-
-
