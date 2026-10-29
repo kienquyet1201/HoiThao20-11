@@ -4,11 +4,11 @@
     {
       "label": "PTIT: Chạy website",
       "type": "process",
-      "command": "python3",
+      "command": "node",
       "windows": {
-        "command": "${env:USERPROFILE}/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe"
+        "command": "${env:USERPROFILE}/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe"
       },
-      "args": ["-u", "-m", "http.server", "8765", "--bind", "127.0.0.1", "--directory", "dist"],
+      "args": ["scripts/dev-server.mjs"],
       "options": { "cwd": "${workspaceFolder}" },
       "isBackground": true,
       "problemMatcher": {
@@ -23,8 +23,8 @@
         },
         "background": {
           "activeOnStart": true,
-          "beginsPattern": "^Serving HTTP on",
-          "endsPattern": "^Serving HTTP on"
+          "beginsPattern": "^PTIT preview ready:",
+          "endsPattern": "^PTIT preview ready:"
         }
       },
       "group": { "kind": "build", "isDefault": true },

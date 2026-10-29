@@ -1,0 +1,1341 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": null,
+  "settings": {
+    "title": "PTIT × Rikkei Cup 2026",
+    "heroLine1": "CHUNG ĐAM MÊ.",
+    "heroLine2": "CÙNG BỨT PHÁ.",
+    "description": "Điểm hẹn của tinh thần đồng đội.\nTheo dõi hành trình chinh phục sân cỏ 7 người.",
+    "notice": "Ngày, giờ, sân thi đấu và kết quả chưa được cung cấp. Các cặp vòng bảng dưới đây được lập từ danh sách bảng đấu; thứ tự thi đấu chờ BTC xác nhận.",
+    "pointsWin": 3,
+    "pointsDraw": 1,
+    "pointsLoss": 0
+  },
+  "teams": [
+    {
+      "id": 0,
+      "name": "K25-CNTT5/QTKD1",
+      "alias": "FC CNTT5",
+      "group": "A",
+      "captain": "Đào Nguyễn Lâm Hoàng",
+      "status": "Đã phê duyệt",
+      "declared": 13.0,
+      "players": [
+        {
+          "name": "Đào Nguyễn Lâm Hoàng",
+          "number": null,
+          "id": "t0-p1"
+        },
+        {
+          "name": "Đặng Kiên Quyết",
+          "number": null,
+          "id": "t0-p2"
+        },
+        {
+          "name": "Mai Đức Thuy",
+          "number": null,
+          "id": "t0-p3"
+        },
+        {
+          "name": "Nguyễn Trần Anh Dũng",
+          "number": null,
+          "id": "t0-p4"
+        },
+        {
+          "name": "Phạm Việt Dũng",
+          "number": null,
+          "id": "t0-p5"
+        },
+        {
+          "name": "Lê Minh Duy",
+          "number": null,
+          "id": "t0-p6"
+        },
+        {
+          "name": "Ngô Tiến Khang",
+          "number": null,
+          "id": "t0-p7"
+        },
+        {
+          "name": "Trịnh Hoàng Anh",
+          "number": null,
+          "id": "t0-p8"
+        },
+        {
+          "name": "Hoàng Phúc Hiếu",
+          "number": null,
+          "id": "t0-p9"
+        },
+        {
+          "name": "Vũ Văn Hiếu",
+          "number": null,
+          "id": "t0-p10"
+        },
+        {
+          "name": "Bùi Duy Hoàng",
+          "number": null,
+          "id": "t0-p11"
+        },
+        {
+          "name": "Lưu Anh Tuấn",
+          "number": null,
+          "id": "t0-p12"
+        },
+        {
+          "name": "Lê Gia Dương",
+          "number": null,
+          "id": "t0-p13"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "K26-QTKD3",
+      "alias": "FC-QTKD3",
+      "group": "A",
+      "captain": "Đỗ Nhật Huy",
+      "status": "Chưa có trạng thái duyệt",
+      "declared": 8.0,
+      "players": [
+        {
+          "name": "Vũ Minh Đức",
+          "number": "12",
+          "id": "t1-p1"
+        },
+        {
+          "name": "Đoàn Ngọc Bảo",
+          "number": "22",
+          "id": "t1-p2"
+        },
+        {
+          "name": "Phạm Hữu Chinh",
+          "number": "29",
+          "id": "t1-p3"
+        },
+        {
+          "name": "Lê Danh Võ",
+          "number": "27",
+          "id": "t1-p4"
+        },
+        {
+          "name": "Lê Đức Hiếu",
+          "number": "236",
+          "id": "t1-p5"
+        },
+        {
+          "name": "Đỗ Nhật Huy",
+          "number": "25",
+          "id": "t1-p6"
+        },
+        {
+          "name": "Triệu Quang Vũ",
+          "number": "19",
+          "id": "t1-p7"
+        },
+        {
+          "name": "Nguyễn Dương Đức Hiếu",
+          "number": "7",
+          "id": "t1-p8"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "K26-CNTT1",
+      "alias": "CNTT1-K26",
+      "group": "A",
+      "captain": "Phạm Quốc Đạt",
+      "status": "Chờ duyệt",
+      "declared": 14.0,
+      "players": [
+        {
+          "name": "Phạm Gia Bảo",
+          "number": "10",
+          "id": "t2-p1"
+        },
+        {
+          "name": "Hoàng Ngọc Sơn",
+          "number": "11",
+          "id": "t2-p2"
+        },
+        {
+          "name": "Trần Đức Thiện",
+          "number": "3",
+          "id": "t2-p3"
+        },
+        {
+          "name": "Nguyễn Vương Anh Minh",
+          "number": "6",
+          "id": "t2-p4"
+        },
+        {
+          "name": "Mai Huy Hoàng",
+          "number": "5",
+          "id": "t2-p5"
+        },
+        {
+          "name": "Đỗ Phạm Gia Hiếu",
+          "number": "10",
+          "id": "t2-p6"
+        },
+        {
+          "name": "Nguyễn Hồng Vũ",
+          "number": "22",
+          "id": "t2-p7"
+        },
+        {
+          "name": "Nguyễn Đăng Minh Nhật",
+          "number": "20",
+          "id": "t2-p8"
+        },
+        {
+          "name": "Hoàng Văn Trái",
+          "number": "47",
+          "id": "t2-p9"
+        },
+        {
+          "name": "Trần Tuấn Anh",
+          "number": "15",
+          "id": "t2-p10"
+        },
+        {
+          "name": "Lê Quang Hào",
+          "number": "00",
+          "id": "t2-p11"
+        },
+        {
+          "name": "Trần Đình Phú",
+          "number": "87",
+          "id": "t2-p12"
+        },
+        {
+          "name": "Trần Bình An",
+          "number": "79",
+          "id": "t2-p13"
+        },
+        {
+          "name": "Đường Gia Huy",
+          "number": "19",
+          "id": "t2-p14"
+        },
+        {
+          "name": "Phạm Quốc Đạt",
+          "number": "7",
+          "id": "t2-p15"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Đội Giảng Viên RE",
+      "alias": "RE - Giảng Viên",
+      "group": "B",
+      "captain": "Nguyễn Duy Quang",
+      "status": "Đã phê duyệt",
+      "declared": 14.0,
+      "players": [
+        {
+          "name": "Nguyễn Duy Quang",
+          "number": null,
+          "id": "t3-p1"
+        },
+        {
+          "name": "Trịnh Khắc Linh",
+          "number": null,
+          "id": "t3-p2"
+        },
+        {
+          "name": "Trịnh Quốc Hai",
+          "number": null,
+          "id": "t3-p3"
+        },
+        {
+          "name": "Ngọ Văn Quý",
+          "number": null,
+          "id": "t3-p4"
+        },
+        {
+          "name": "Nguyễn Đức Thịnh",
+          "number": null,
+          "id": "t3-p5"
+        },
+        {
+          "name": "Trần Văn Cao",
+          "number": null,
+          "id": "t3-p6"
+        },
+        {
+          "name": "Mai Xuân Chinh",
+          "number": null,
+          "id": "t3-p7"
+        },
+        {
+          "name": "Lại Trung Lâm",
+          "number": null,
+          "id": "t3-p8"
+        },
+        {
+          "name": "Lương Quốc Tuấn",
+          "number": null,
+          "id": "t3-p9"
+        },
+        {
+          "name": "Lâm Tùng Dương",
+          "number": null,
+          "id": "t3-p10"
+        },
+        {
+          "name": "Nguyễn Quang Hà",
+          "number": null,
+          "id": "t3-p11"
+        },
+        {
+          "name": "Đào Hồng Sơn",
+          "number": null,
+          "id": "t3-p12"
+        },
+        {
+          "name": "Nguyễn Viết Đạt",
+          "number": null,
+          "id": "t3-p13"
+        },
+        {
+          "name": "Hồ Xuân Hùng",
+          "number": null,
+          "id": "t3-p14"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "K26-QTKD1",
+      "alias": "D26-QTKD1",
+      "group": "B",
+      "captain": "Nguyễn Anh Tuấn",
+      "status": "Đã phê duyệt",
+      "declared": 14.0,
+      "players": [
+        {
+          "name": "Nguyễn Anh Tuấn",
+          "number": "25",
+          "id": "t4-p1"
+        },
+        {
+          "name": "Ngô Hoàng Hải",
+          "number": "10",
+          "id": "t4-p2"
+        },
+        {
+          "name": "Cáp Văn Mạnh Duy",
+          "number": "28",
+          "id": "t4-p3"
+        },
+        {
+          "name": "Triệu Kim Hoàng",
+          "number": "11",
+          "id": "t4-p4"
+        },
+        {
+          "name": "Đoàn Phương Nam",
+          "number": "24",
+          "id": "t4-p5"
+        },
+        {
+          "name": "Đào Quốc Huy",
+          "number": "12",
+          "id": "t4-p6"
+        },
+        {
+          "name": "Trần Công Sơn",
+          "number": "23",
+          "id": "t4-p7"
+        },
+        {
+          "name": "Từ Văn Lộc",
+          "number": "67",
+          "id": "t4-p8"
+        },
+        {
+          "name": "Đặng Gia Hưng",
+          "number": "7",
+          "id": "t4-p9"
+        },
+        {
+          "name": "Nguyễn Công Cảnh",
+          "number": "14",
+          "id": "t4-p10"
+        },
+        {
+          "name": "Mai Đức Lâm",
+          "number": "05",
+          "id": "t4-p11"
+        },
+        {
+          "name": "Lê Nam Phong",
+          "number": "19",
+          "id": "t4-p12"
+        },
+        {
+          "name": "Nguyễn Danh Khoa",
+          "number": "3",
+          "id": "t4-p13"
+        },
+        {
+          "name": "Nguyễn Đình Mạnh",
+          "number": "22",
+          "id": "t4-p14"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "K26-CNTT2",
+      "alias": "Fc Cntt2",
+      "group": "B",
+      "captain": "Vũ Đình Bình",
+      "status": "Đã phê duyệt",
+      "declared": 11.0,
+      "players": [
+        {
+          "name": "Phạm Quang",
+          "number": null,
+          "id": "t5-p1"
+        },
+        {
+          "name": "Việt Anh",
+          "number": null,
+          "id": "t5-p2"
+        },
+        {
+          "name": "Hải Đăng",
+          "number": null,
+          "id": "t5-p3"
+        },
+        {
+          "name": "Tiến",
+          "number": null,
+          "id": "t5-p4"
+        },
+        {
+          "name": "Tuấn anh",
+          "number": null,
+          "id": "t5-p5"
+        },
+        {
+          "name": "Nguyễn Đức Hiếu",
+          "number": null,
+          "id": "t5-p6"
+        },
+        {
+          "name": "nhân",
+          "number": null,
+          "id": "t5-p7"
+        },
+        {
+          "name": "trung kiên",
+          "number": null,
+          "id": "t5-p8"
+        },
+        {
+          "name": "Lê Hồng Quân",
+          "number": null,
+          "id": "t5-p9"
+        },
+        {
+          "name": "Kiệt",
+          "number": null,
+          "id": "t5-p10"
+        },
+        {
+          "name": "Vũ Đình Bình",
+          "number": null,
+          "id": "t5-p11"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Đội K24",
+      "alias": "HN-K24",
+      "group": "C",
+      "captain": "Nguyễn Việt Nam",
+      "status": "Đã phê duyệt",
+      "declared": 14.0,
+      "players": [
+        {
+          "name": "Phạm Lê Hoàng",
+          "number": "1",
+          "id": "t6-p1"
+        },
+        {
+          "name": "Nguyễn Minh Quân",
+          "number": "9",
+          "id": "t6-p2"
+        },
+        {
+          "name": "Nguyễn Việt Nam",
+          "number": "26",
+          "id": "t6-p3"
+        },
+        {
+          "name": "Đào Quang Huy",
+          "number": "7",
+          "id": "t6-p4"
+        },
+        {
+          "name": "Hoàng Cương Cát",
+          "number": "19",
+          "id": "t6-p5"
+        },
+        {
+          "name": "Hoàng Văn Lương",
+          "number": "27",
+          "id": "t6-p6"
+        },
+        {
+          "name": "Nguyễn Tiến Minh",
+          "number": "23",
+          "id": "t6-p7"
+        },
+        {
+          "name": "Nguyễn Quang Vinh",
+          "number": "10",
+          "id": "t6-p8"
+        },
+        {
+          "name": "Trần Khánh An",
+          "number": "8",
+          "id": "t6-p9"
+        },
+        {
+          "name": "Phạm Quốc Khánh",
+          "number": "5",
+          "id": "t6-p10"
+        },
+        {
+          "name": "Nguyễn Sơn Minh",
+          "number": "237",
+          "id": "t6-p11"
+        },
+        {
+          "name": "Trần Văn Thắng",
+          "number": "18",
+          "id": "t6-p12"
+        },
+        {
+          "name": "Đỗ Chung Hiếu",
+          "number": "24",
+          "id": "t6-p13"
+        },
+        {
+          "name": "Nguyễn Trọng Đặng Nhất",
+          "number": "17",
+          "id": "t6-p14"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "K25-CNTT4",
+      "alias": "FC -CNTT4",
+      "group": "C",
+      "captain": "Nguyễn Tiến Đạt",
+      "status": "Đã phê duyệt",
+      "declared": 12.0,
+      "players": [
+        {
+          "name": "Nguyễn Tiến Đạt",
+          "number": "09",
+          "id": "t7-p1"
+        },
+        {
+          "name": "Thân Văn Minh Tuyến",
+          "number": "18",
+          "id": "t7-p2"
+        },
+        {
+          "name": "Trường Nguyễn",
+          "number": "22",
+          "id": "t7-p3"
+        },
+        {
+          "name": "Phạm Quốc Anh",
+          "number": "15",
+          "id": "t7-p4"
+        },
+        {
+          "name": "Vũ Dũng",
+          "number": "20",
+          "id": "t7-p5"
+        },
+        {
+          "name": "Kiên Trung Ngô",
+          "number": "108",
+          "id": "t7-p6"
+        },
+        {
+          "name": "Việt Anh",
+          "number": "28",
+          "id": "t7-p7"
+        },
+        {
+          "name": "Nguyễn Đức Anh",
+          "number": "10",
+          "id": "t7-p8"
+        },
+        {
+          "name": "Phạm Danh Quốc Anh",
+          "number": "22",
+          "id": "t7-p9"
+        },
+        {
+          "name": "Phạm Văn Diệp(GK)",
+          "number": "01",
+          "id": "t7-p10"
+        },
+        {
+          "name": "Nguyễn Huy Hoàng",
+          "number": "8",
+          "id": "t7-p11"
+        },
+        {
+          "name": "Đinh Nguyễn Khánh Toàn",
+          "number": "24",
+          "id": "t7-p12"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "K26-QTKD2",
+      "alias": "QTKD2-K26",
+      "group": "C",
+      "captain": "Nguyễn Xuân Hiến",
+      "status": "Đã phê duyệt",
+      "declared": 12.0,
+      "players": [
+        {
+          "name": "Nguyễn Xuân Hiến",
+          "number": "10",
+          "id": "t8-p1"
+        },
+        {
+          "name": "Lê Thành Trung",
+          "number": "8",
+          "id": "t8-p2"
+        },
+        {
+          "name": "Hoàng Ngọc Thạch",
+          "number": "203",
+          "id": "t8-p3"
+        },
+        {
+          "name": "Đặng Duy Sim",
+          "number": "18",
+          "id": "t8-p4"
+        },
+        {
+          "name": "Đỗ An Khang",
+          "number": "7",
+          "id": "t8-p5"
+        },
+        {
+          "name": "Nguyễn Đức Đạt",
+          "number": "09",
+          "id": "t8-p6"
+        },
+        {
+          "name": "Đồ Quang Anh - số 14",
+          "number": null,
+          "id": "t8-p7"
+        },
+        {
+          "name": "Mai Thế Bảo Quân",
+          "number": "21",
+          "id": "t8-p8"
+        },
+        {
+          "name": "Phạm Anh Quân",
+          "number": "100",
+          "id": "t8-p9"
+        },
+        {
+          "name": "Phan Công Minh Khôi",
+          "number": "254",
+          "id": "t8-p10"
+        },
+        {
+          "name": "Khổng Minh Tiến",
+          "number": "15",
+          "id": "t8-p11"
+        },
+        {
+          "name": "Lê Thành Trung",
+          "number": "29",
+          "id": "t8-p12"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "K26-CNTT3",
+      "alias": "FC ThieuNang",
+      "group": "D",
+      "captain": "Vũ Nam Tùng",
+      "status": "Đã phê duyệt",
+      "declared": 14.0,
+      "players": [
+        {
+          "name": "Vũ Nam Tùng",
+          "number": "26",
+          "id": "t9-p1"
+        },
+        {
+          "name": "Nguyễn Trung Thành",
+          "number": "62",
+          "id": "t9-p2"
+        },
+        {
+          "name": "Pham Nhat Anh",
+          "number": "11",
+          "id": "t9-p3"
+        },
+        {
+          "name": "Tạ đình nam khánh",
+          "number": "1",
+          "id": "t9-p4"
+        },
+        {
+          "name": "Đào Tuấn Minh",
+          "number": "19",
+          "id": "t9-p5"
+        },
+        {
+          "name": "Nguyễn Minh Tùng",
+          "number": "10",
+          "id": "t9-p6"
+        },
+        {
+          "name": "Phạm Xuân Trường",
+          "number": "6",
+          "id": "t9-p7"
+        },
+        {
+          "name": "Mai Đức Hiển",
+          "number": "23",
+          "id": "t9-p8"
+        },
+        {
+          "name": "Phạm Viết Toàn",
+          "number": "24",
+          "id": "t9-p9"
+        },
+        {
+          "name": "Đỗ Thành Chung",
+          "number": "12",
+          "id": "t9-p10"
+        },
+        {
+          "name": "Lê Minh Quân",
+          "number": "3",
+          "id": "t9-p11"
+        },
+        {
+          "name": "Nguyễn Thuận Phát",
+          "number": "53",
+          "id": "t9-p12"
+        },
+        {
+          "name": "Nguyễn Hải Anh",
+          "number": "49",
+          "id": "t9-p13"
+        },
+        {
+          "name": "Phạm Ngọc Duy",
+          "number": "5",
+          "id": "t9-p14"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "K25-QTKD2/CNTT3",
+      "alias": "QTKD2xCNTT3",
+      "group": "D",
+      "captain": "Bùi Hữu Nhân",
+      "status": "Đã phê duyệt",
+      "declared": 11.0,
+      "players": [
+        {
+          "name": "Bùi Hữu Nhân",
+          "number": "08",
+          "id": "t10-p1"
+        },
+        {
+          "name": "Hồ Mạnh Duy",
+          "number": "06",
+          "id": "t10-p2"
+        },
+        {
+          "name": "Hoàng Thanh Nam",
+          "number": "11",
+          "id": "t10-p3"
+        },
+        {
+          "name": "Đỗ Duy Trường",
+          "number": "30",
+          "id": "t10-p4"
+        },
+        {
+          "name": "Trần Võ Huy Thành",
+          "number": "99",
+          "id": "t10-p5"
+        },
+        {
+          "name": "vũ anh đứcc",
+          "number": "19",
+          "id": "t10-p6"
+        },
+        {
+          "name": "Nguyễn Cao Nguyên",
+          "number": "09",
+          "id": "t10-p7"
+        },
+        {
+          "name": "Vũ Đức hoàng",
+          "number": "02",
+          "id": "t10-p8"
+        },
+        {
+          "name": "vũ hàn thiên đức",
+          "number": "07",
+          "id": "t10-p9"
+        },
+        {
+          "name": "Trần Việt Anh",
+          "number": "04",
+          "id": "t10-p10"
+        },
+        {
+          "name": "Ngô Xuân Tài",
+          "number": "17",
+          "id": "t10-p11"
+        },
+        {
+          "name": "Trần Quang Minh",
+          "number": "21",
+          "id": "t10-p12"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "K25-CNTT1/CNTT2",
+      "alias": "CNTT1 x CNTT2",
+      "group": "D",
+      "captain": "Nguyễn Tấn Dũng",
+      "status": "Đã phê duyệt",
+      "declared": 10.0,
+      "players": [
+        {
+          "name": "Nguyễn Tấn Dũng",
+          "number": null,
+          "id": "t11-p1"
+        },
+        {
+          "name": "Nguyễn Minh Đức",
+          "number": null,
+          "id": "t11-p2"
+        },
+        {
+          "name": "Vi Anh Dũng",
+          "number": null,
+          "id": "t11-p3"
+        },
+        {
+          "name": "Chu Gia Huy",
+          "number": null,
+          "id": "t11-p4"
+        },
+        {
+          "name": "Nguyễn Hoàng Anh",
+          "number": null,
+          "id": "t11-p5"
+        },
+        {
+          "name": "Vũ Anh Văn",
+          "number": null,
+          "id": "t11-p6"
+        },
+        {
+          "name": "Trần Minh Đức",
+          "number": null,
+          "id": "t11-p7"
+        },
+        {
+          "name": "Nguyễn Khắc Hiếu",
+          "number": null,
+          "id": "t11-p8"
+        },
+        {
+          "name": "Nguyễn Đức Đạt",
+          "number": null,
+          "id": "t11-p9"
+        },
+        {
+          "name": "Tạ Hoàng Nam",
+          "number": null,
+          "id": "t11-p10"
+        },
+        {
+          "name": "Lê Đình Tùng",
+          "number": null,
+          "id": "t11-p11"
+        },
+        {
+          "name": "Phạm Tấn Dũng",
+          "number": null,
+          "id": "t11-p12"
+        },
+        {
+          "name": "Lê Minh Sơn",
+          "number": null,
+          "id": "t11-p13"
+        },
+        {
+          "name": "Nguyễn Thế Long",
+          "number": null,
+          "id": "t11-p14"
+        }
+      ]
+    }
+  ],
+  "matches": [
+    {
+      "id": "A1",
+      "stage": "group",
+      "group": "A",
+      "home": {
+        "type": "team",
+        "teamId": 0
+      },
+      "away": {
+        "type": "team",
+        "teamId": 1
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "A2",
+      "stage": "group",
+      "group": "A",
+      "home": {
+        "type": "team",
+        "teamId": 0
+      },
+      "away": {
+        "type": "team",
+        "teamId": 2
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "A3",
+      "stage": "group",
+      "group": "A",
+      "home": {
+        "type": "team",
+        "teamId": 1
+      },
+      "away": {
+        "type": "team",
+        "teamId": 2
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "B1",
+      "stage": "group",
+      "group": "B",
+      "home": {
+        "type": "team",
+        "teamId": 3
+      },
+      "away": {
+        "type": "team",
+        "teamId": 4
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "B2",
+      "stage": "group",
+      "group": "B",
+      "home": {
+        "type": "team",
+        "teamId": 3
+      },
+      "away": {
+        "type": "team",
+        "teamId": 5
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "B3",
+      "stage": "group",
+      "group": "B",
+      "home": {
+        "type": "team",
+        "teamId": 4
+      },
+      "away": {
+        "type": "team",
+        "teamId": 5
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "C1",
+      "stage": "group",
+      "group": "C",
+      "home": {
+        "type": "team",
+        "teamId": 6
+      },
+      "away": {
+        "type": "team",
+        "teamId": 7
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "C2",
+      "stage": "group",
+      "group": "C",
+      "home": {
+        "type": "team",
+        "teamId": 6
+      },
+      "away": {
+        "type": "team",
+        "teamId": 8
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "C3",
+      "stage": "group",
+      "group": "C",
+      "home": {
+        "type": "team",
+        "teamId": 7
+      },
+      "away": {
+        "type": "team",
+        "teamId": 8
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "D1",
+      "stage": "group",
+      "group": "D",
+      "home": {
+        "type": "team",
+        "teamId": 9
+      },
+      "away": {
+        "type": "team",
+        "teamId": 10
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "D2",
+      "stage": "group",
+      "group": "D",
+      "home": {
+        "type": "team",
+        "teamId": 9
+      },
+      "away": {
+        "type": "team",
+        "teamId": 11
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "D3",
+      "stage": "group",
+      "group": "D",
+      "home": {
+        "type": "team",
+        "teamId": 10
+      },
+      "away": {
+        "type": "team",
+        "teamId": 11
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "TK1",
+      "stage": "quarter",
+      "group": null,
+      "home": {
+        "type": "groupRank",
+        "group": "A",
+        "rank": 1
+      },
+      "away": {
+        "type": "groupRank",
+        "group": "C",
+        "rank": 2
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "TK2",
+      "stage": "quarter",
+      "group": null,
+      "home": {
+        "type": "groupRank",
+        "group": "B",
+        "rank": 1
+      },
+      "away": {
+        "type": "groupRank",
+        "group": "D",
+        "rank": 2
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "TK3",
+      "stage": "quarter",
+      "group": null,
+      "home": {
+        "type": "groupRank",
+        "group": "C",
+        "rank": 1
+      },
+      "away": {
+        "type": "groupRank",
+        "group": "B",
+        "rank": 2
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "TK4",
+      "stage": "quarter",
+      "group": null,
+      "home": {
+        "type": "groupRank",
+        "group": "D",
+        "rank": 1
+      },
+      "away": {
+        "type": "groupRank",
+        "group": "A",
+        "rank": 2
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "BK1",
+      "stage": "semi",
+      "group": null,
+      "home": {
+        "type": "winner",
+        "matchId": "TK1"
+      },
+      "away": {
+        "type": "winner",
+        "matchId": "TK2"
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "BK2",
+      "stage": "semi",
+      "group": null,
+      "home": {
+        "type": "winner",
+        "matchId": "TK3"
+      },
+      "away": {
+        "type": "winner",
+        "matchId": "TK4"
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "THIRD",
+      "stage": "third",
+      "group": null,
+      "home": {
+        "type": "loser",
+        "matchId": "BK1"
+      },
+      "away": {
+        "type": "loser",
+        "matchId": "BK2"
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    },
+    {
+      "id": "FINAL",
+      "stage": "final",
+      "group": null,
+      "home": {
+        "type": "winner",
+        "matchId": "BK1"
+      },
+      "away": {
+        "type": "winner",
+        "matchId": "BK2"
+      },
+      "date": "",
+      "time": "",
+      "venue": "",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "winnerTeamId": null
+    }
+  ],
+  "qualifiers": {
+    "A": {
+      "first": null,
+      "second": null
+    },
+    "B": {
+      "first": null,
+      "second": null
+    },
+    "C": {
+      "first": null,
+      "second": null
+    },
+    "D": {
+      "first": null,
+      "second": null
+    }
+  }
+}

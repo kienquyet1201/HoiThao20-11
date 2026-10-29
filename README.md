@@ -1,63 +1,75 @@
 # PTIT × Rikkei Cup 2026
 
-Website tiếng Việt cho giải bóng đá nam 7 người PTIT × Rikkei 2026.
+Website: <https://hoithao20-11.vercel.app/> · Quản trị: <https://hoithao20-11.vercel.app/admin>.
 
 ## Chức năng
 
-- Xem cặp đấu vòng bảng và vòng loại trực tiếp; lọc theo bảng.
-- Xem 12 đội, danh sách 153 cầu thủ và tìm theo tên đội/cầu thủ.
-- Xem bốn bảng A–D và nhánh tứ kết, bán kết, chung kết, tranh giải ba.
-- Hiển thị trạng thái đăng ký và chênh lệch số lượng kê khai trong chi tiết đội.
+- Xem lịch, kết quả, 12 đội, danh sách cầu thủ, 4 bảng và nhánh loại trực tiếp.
+- Chủ website sửa đội/cầu thủ, lịch/sân/tỷ số, phân bảng, suất đi tiếp và thông tin giải tại `/admin`.
+- Điểm được tính từ trận đã kết thúc. Nhất/nhì mỗi bảng do BTC xác nhận thủ công, không tự áp dụng điều lệ phân hạng chưa được cung cấp.
+- Nhánh tứ kết, bán kết, chung kết và tranh giải ba dùng chung dữ liệu với lịch thi đấu.
 
-Ngày giờ, sân và kết quả chưa có trong tài liệu nguồn nên hiển thị chưa công bố.
-Các cặp vòng bảng được lập từ ảnh phân bảng; thứ tự thi đấu chờ BTC xác nhận.
+Danh sách gốc được nhập từ Excel đăng ký và hai ảnh phân bảng/nhánh đấu, giữ đủ 12 đội và 153 cầu thủ. Ngày giờ, sân và kết quả ban đầu để trống.
 
-## Mở và chạy trong Visual Studio Code
+## Bật đăng nhập quản trị
 
-1. Mở thư mục dự án bằng **File → Open Folder**.
-2. Bấm **F5**, chọn **PTIT: Xem website trong Edge**. VS Code khởi động máy chủ tại <http://127.0.0.1:8765>.
-3. Hoặc bấm **Ctrl+Shift+B** để chạy máy chủ, rồi mở địa chỉ trên trong trình duyệt.
+Trang dùng Auth.js với GitHub OAuth. Máy chủ chỉ chấp nhận tài khoản GitHub ID **232730198**, login **kienquyet1201**. Không có mật khẩu quản trị nằm trong JavaScript trình duyệt.
 
-Task Windows dùng Python đi kèm Codex tại `%USERPROFILE%/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`.
-Nếu dùng máy khác, sửa `windows.command` trong `.vscode/tasks.json` thành đường dẫn Python 3 của máy, hoặc chạy thủ công:
+1. Tạo OAuth App tại <https://github.com/settings/applications/new>.
+2. Homepage URL: `https://hoithao20-11.vercel.app`.
+3. Authorization callback URL: `https://hoithao20-11.vercel.app/api/auth/callback/github`.
+4. Giữ tùy chọn hết hạn token nếu GitHub cung cấp. Phiên quản trị kéo dài tối đa 30 phút; token hết hạn hoặc bị thu hồi yêu cầu đăng nhập lại.
+5. Thêm hai biến **Secret** trong Vercel, cho Production/Preview: `AUTH_GITHUB_ID` (Client ID), `AUTH_GITHUB_SECRET` (Client secret). Không commit hay gửi secret vào chat.
+6. Redeploy sau khi thêm/sửa biến môi trường. Đăng nhập và lưu nội dung trên domain Production nêu trên.
+
+`AUTH_SECRET` là tùy chọn nếu muốn đặt khóa phiên riêng (ít nhất 32 ký tự ngẫu nhiên). Mặc định máy chủ dẫn xuất khóa phiên từ OAuth client secret với ngữ cảnh riêng. `SITE_ORIGIN` mặc định là domain Production; chỉ thay khi chuyển domain và đã cập nhật callback của OAuth App.
+
+Nếu thiếu cấu hình, trang quản trị hiển thị hướng dẫn và API ghi từ chối yêu cầu. Kết nối GitHub trong Codex dùng cho tác vụ hỗ trợ; OAuth App này dành riêng cho người đăng nhập trên website.
+
+## Lưu và xuất bản
+
+**Lưu thay đổi** gửi dữ liệu qua API được xác thực và kiểm tra ID chủ tài khoản với GitHub. API kiểm tra nội dung, nguồn yêu cầu và phiên bản tệp trước khi ghi **duy nhất** `dist/content.json` trên nhánh `main` của `kienquyet1201/HoiThao20-11`.
+
+Mỗi lần lưu tạo một commit GitHub, kích hoạt Vercel triển khai. Trang công khai cập nhật sau khi deployment mới hoàn tất. Không phải dữ liệu chỉ lưu trên trình duyệt. Hai bản chỉnh sửa cạnh tranh nhận lỗi 409 thay vì ghi đè âm thầm. Lịch sử GitHub có thể dùng để khôi phục phiên bản.
+
+Ứng dụng xin phạm vi OAuth `read:user user:email public_repo`. Token chỉ nằm trong cookie phiên được mã hóa, HttpOnly; không được trả trong JSON phiên hay lưu vào localStorage. Người dùng khác và người chưa đăng nhập không được lưu.
+
+## Chạy trong Visual Studio Code
+
+Yêu cầu Node.js 22+ và pnpm 11.25.0:
 
 ```sh
-python -m http.server 8765 --bind 127.0.0.1 --directory dist
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-Trên macOS/Linux, dùng `python3` thay `python`. Không cần cài gói phụ thuộc hay build.
-Website đọc `data.json` qua HTTP, vì vậy cần chạy máy chủ thay vì mở `index.html` bằng `file://`.
-Dừng máy chủ bằng **Tasks: Terminate Task** hoặc **Ctrl+C** tại terminal đang chạy.
+Mở <http://127.0.0.1:8765>. Bấm **F5** trong VS Code để chạy máy chủ và mở Edge, hoặc **Ctrl+Shift+B** để chạy máy chủ. Task Windows dùng Node đi kèm Codex; trên máy khác sửa `windows.command` trong `.vscode/tasks.json` thành đường dẫn Node của máy.
+
+Máy chủ local hỗ trợ cả API. Không dùng `file://` để mở HTML. Đăng nhập OAuth thực tế được kiểm tra trên domain Production; cấu hình local chưa có OAuth vẫn cho xem dữ liệu công khai và màn hình hướng dẫn quản trị.
+
+Kiểm tra:
+
+```sh
+pnpm test
+pnpm build
+```
 
 ## Cấu trúc
 
-| Tệp | Nội dung |
+| Đường dẫn | Vai trò |
 | --- | --- |
-| `dist/index.html` | Bố cục, nhánh đấu và nội dung tĩnh |
-| `dist/style.css` | Giao diện và bố cục trên điện thoại |
-| `dist/app.js` | Bộ lọc, tìm kiếm, lịch và chi tiết đội |
-| `dist/data.json` | Đội và cầu thủ từ danh sách đăng ký |
-| `.vscode/` | Task máy chủ và cấu hình chạy thử |
-| `vercel.json` | Cấu hình Vercel phục vụ thư mục `dist` tại đường dẫn gốc |
-| `.openai/hosting.json` | Cấu hình website Sites hiện tại |
+| `dist/content.json` | Nguồn chung cho giải, đội, cầu thủ, trận và suất đi tiếp |
+| `dist/model.js` | Phân giải đội/nhánh và tính điểm |
+| `dist/app.js`, `dist/index.html`, `dist/style.css` | Website công khai |
+| `dist/admin.html`, `dist/admin.js`, `dist/admin.css` | Giao diện quản trị |
+| `api/` | Các Vercel Functions xác thực, đọc và lưu |
+| `lib/` | Kiểm tra quyền, dữ liệu, HTTP và GitHub API |
+| `tests/` | Kiểm tra quyền ghi, dữ liệu, phiên và xung đột |
+| `vercel.json` | Functions, thư mục `dist` và đường dẫn `/admin`, `/api/auth/*` |
+| `.openai/hosting.json` | Giữ danh tính bản Sites đã tạo trước đây |
 
-Để sửa tên hoặc danh sách cầu thủ, cập nhật `dist/data.json`. Cặp đấu loại trực tiếp hiện được khai báo trong `dist/app.js` và `dist/index.html`.
-Nguồn là file Excel đăng ký và hai ảnh phân bảng/nhánh đấu do người dùng cung cấp.
+`dist/data.json` giữ bản nhập cũ để tham chiếu; ứng dụng hiện đọc `content.json` thông qua API. Không sửa `data.json` để cập nhật website.
 
-## Triển khai lên Vercel
+## Triển khai
 
-Website: <https://hoithao20-11.vercel.app/>.
-
-Kết nối Vercel với repository này và nhánh `main`. **Root Directory** phải là thư mục gốc của repository (`.` hoặc để trống).
-Tệp `vercel.json` đã chọn **Framework Preset: Other**, bỏ qua bước cài đặt/build và đặt **Output Directory: `dist`**.
-Website là HTML/CSS/JavaScript tĩnh nên không cần `npm install` hay `npm run build`.
-
-Vercel cần xuất bản nội dung của `dist`, để `index.html`, `app.js`, `style.css` và `data.json` nằm ngay dưới URL gốc.
-Nếu phục vụ nguyên repository, `/` sẽ báo 404 trong khi `/dist/index.html` vẫn mở được.
-Sau khi push, chờ deployment từ commit mới hoàn tất. Nếu không có deployment tự động, chọn **Redeploy** từ phiên bản mã nguồn mới nhất.
-
-## Git
-
-Repository: <https://github.com/kienquyet1201/HoiThao20-11>.
-Trong VS Code, dùng **Source Control** để xem thay đổi, commit và push sau khi đăng nhập tài khoản có quyền ghi repository.
-Push Git lưu mã nguồn lên GitHub; việc xuất bản phiên bản mới lên Sites là một bước riêng.
+Vercel kết nối repository <https://github.com/kienquyet1201/HoiThao20-11>, nhánh `main`; Root Directory là thư mục gốc repository. `vercel.json` cài phụ thuộc theo lockfile, kiểm tra nội dung trước build và xuất bản `dist` cùng các Functions trong `api/`.

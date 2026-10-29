@@ -1,7 +1,159 @@
-let teams=[],stage='group';const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const badge=t=>`<span class="badge">${t.group}${t.id%3+1}</span>`;const normalize=s=>s.toLocaleLowerCase('vi').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
-function showTeam(id){const t=teams.find(t=>t.id===id);$('#roster-content').innerHTML=`<div class="eyebrow red">BẢNG ${t.group} · DANH SÁCH ĐĂNG KÝ</div><h2>${esc(t.name)}</h2><p class="roster-meta">Tên đăng ký: ${esc(t.alias)}<br>Đội trưởng: ${esc(t.captain)}<br>Trạng thái: ${esc(t.status)}<br>${t.players.length} cầu thủ trong danh sách · Kê khai: ${esc(t.declared??'Chưa cung cấp')}</p>${t.declared&&t.declared!==t.players.length?'<div class="notice">Số cầu thủ trong danh sách khác số lượng kê khai. Chờ BTC xác nhận danh sách chính thức.</div>':''}<p class="footnote">Dấu “—”: chưa xác định số áo từ dữ liệu đăng ký.</p>${t.players.map(p=>`<div class="player"><span class="number">${esc(p.number||'—')}</span><span>${esc(p.name)}</span>${normalize(p.name)===normalize(t.captain)?'<span class="captain">ĐỘI TRƯỞNG</span>':''}</div>`).join('')}`;$('#roster').showModal()}
-function renderTeams(){const q=normalize($('#search').value);const result=teams.filter(t=>normalize(t.name+' '+t.alias+' '+t.players.map(p=>p.name).join(' ')).includes(q));$('#team-grid').innerHTML=result.length?result.map(t=>`<button class="team-card" data-team="${t.id}"><span class="team-group">BẢNG ${t.group}</span>${badge(t)}<h3>${esc(t.name)}</h3><p>${esc(t.alias)}<br>Đội trưởng: ${esc(t.captain)}</p><div class="team-bottom"><span>${t.players.length} cầu thủ</span><b>Xem đội hình ↗</b></div></button>`).join(''):'<p class="empty">Không tìm thấy đội hoặc cầu thủ phù hợp.</p>'}
-const knockout=[['Tứ kết · TK1','Nhất bảng A','Nhì bảng C'],['Tứ kết · TK2','Nhất bảng B','Nhì bảng D'],['Tứ kết · TK3','Nhất bảng C','Nhì bảng B'],['Tứ kết · TK4','Nhất bảng D','Nhì bảng A'],['Bán kết · BK1','Thắng TK1','Thắng TK2'],['Bán kết · BK2','Thắng TK3','Thắng TK4'],['Tranh giải ba','Thua BK1','Thua BK2'],['Chung kết','Thắng BK1','Thắng BK2']];
-function renderMatches(){const group=$('#schedule-group').value;let matches=[];if(stage==='group'){'ABCD'.split('').filter(g=>!group||group===g).forEach(g=>{const ts=teams.filter(t=>t.group===g);[[0,1],[0,2],[1,2]].forEach(([a,b],i)=>matches.push([`Bảng ${g} · Cặp ${i+1}`,ts[a].name,ts[b].name,ts[a],ts[b]]))})}else matches=knockout;$('#matches').innerHTML=matches.map(([label,a,b,ta,tb])=>`<article class="match"><div class="match-top"><span class="tag">${esc(label)}</span><span>CHƯA THI ĐẤU</span></div><div class="match-team">${ta?badge(ta):'<span class="badge">?</span>'}<span>${esc(a)}</span><span class="score">—</span></div><div class="match-team">${tb?badge(tb):'<span class="badge">?</span>'}<span>${esc(b)}</span><span class="score">—</span></div><div class="match-bottom">◷ Ngày giờ, sân: Chưa công bố</div></article>`).join('')}
-fetch('data.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(data=>{teams=data;$('#player-count').textContent=teams.reduce((n,t)=>n+t.players.length,0);renderTeams();renderMatches();$('#group-grid').innerHTML='ABCD'.split('').map(g=>`<article class="group"><h3>Bảng ${g}<span>03 ĐỘI</span></h3><table><thead><tr><th>#</th><th>Đội bóng</th><th>Trận</th><th>HS</th><th>Điểm</th></tr></thead><tbody>${teams.filter(t=>t.group===g).map((t,i)=>`<tr><td>${i+1}</td><td><button data-team="${t.id}">${esc(t.name)}</button></td><td>—</td><td>—</td><td>—</td></tr>`).join('')}</tbody></table></article>`).join('')}).catch(()=>{$('#matches').innerHTML='<p class="empty">Không thể tải dữ liệu. Vui lòng tải lại trang.</p>'});
-document.addEventListener('click',e=>{const btn=e.target.closest('[data-team]');if(btn)showTeam(Number(btn.dataset.team));const tab=e.target.closest('[data-stage]');if(tab){stage=tab.dataset.stage;document.querySelectorAll('[data-stage]').forEach(b=>b.classList.toggle('active',b===tab));$('#schedule-group').hidden=stage!=='group';renderMatches()}});$('#search').addEventListener('input',renderTeams);$('#schedule-group').addEventListener('change',renderMatches);$('.close').addEventListener('click',()=>$('#roster').close());$('#roster').addEventListener('click',e=>{if(e.target===$('#roster')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close()}});
+import { resolveSide, resolveWinner, getStandings, matchLabel } from './model.js';
+
+const $ = selector => document.querySelector(selector);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+const normalize = value => String(value ?? '').toLocaleLowerCase('vi').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
+const GROUPS = ['A', 'B', 'C', 'D'];
+const STATUS = { scheduled: 'CHƯA THI ĐẤU', finished: 'ĐÃ KẾT THÚC', postponed: 'TẠM HOÃN' };
+let content = null;
+let stage = 'group';
+
+function badge(team) {
+  if (!team) return '<span class="badge" aria-hidden="true">?</span>';
+  const ordinal = content.teams.filter(item => item.group === team.group).findIndex(item => item.id === team.id) + 1;
+  return `<span class="badge" aria-hidden="true">${esc(team.group)}${ordinal}</span>`;
+}
+
+function teamFor(side) {
+  return content.teams.find(team => team.id === side.id);
+}
+
+function dateLabel(date) {
+  if (!date) return 'Ngày chưa công bố';
+  const parts = date.split('-');
+  return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : date;
+}
+
+function matchDetails(match) {
+  const time = match.time ? `${match.time} (giờ Việt Nam)` : 'Giờ chưa công bố';
+  return `${dateLabel(match.date)} · ${time} · ${match.venue || 'Sân chưa công bố'}`;
+}
+
+function score(value) {
+  return Number.isInteger(value) ? String(value) : '—';
+}
+
+function showTeam(id) {
+  const team = content?.teams.find(item => item.id === id);
+  if (!team) return;
+  $('#roster-content').innerHTML = `<div class="eyebrow red">BẢNG ${esc(team.group)} · DANH SÁCH ĐĂNG KÝ</div>
+    <h2>${esc(team.name)}</h2>
+    <p class="roster-meta">Tên đăng ký: ${esc(team.alias)}<br>Đội trưởng: ${esc(team.captain)}<br>Trạng thái: ${esc(team.status)}<br>${team.players.length} cầu thủ trong danh sách · Kê khai: ${esc(team.declared ?? 'Chưa cung cấp')}</p>
+    ${team.declared !== null && team.declared !== undefined && team.declared !== team.players.length ? '<div class="notice">Số cầu thủ trong danh sách khác số lượng kê khai. Chờ BTC xác nhận danh sách chính thức.</div>' : ''}
+    <p class="footnote">Dấu “—”: chưa có số áo trong dữ liệu đăng ký.</p>
+    ${team.players.map(player => `<div class="player"><span class="number">${esc(player.number || '—')}</span><span>${esc(player.name)}</span>${normalize(player.name) === normalize(team.captain) ? '<span class="captain">ĐỘI TRƯỞNG</span>' : ''}</div>`).join('')}`;
+  $('#roster').showModal();
+}
+
+function renderTeams() {
+  const query = normalize($('#search').value);
+  const result = content.teams.filter(team => normalize(`${team.name} ${team.alias} ${team.captain} ${team.players.map(player => player.name).join(' ')}`).includes(query));
+  $('#team-grid').innerHTML = result.length ? result.map(team => `<button class="team-card" data-team="${team.id}">
+    <span class="team-group">BẢNG ${esc(team.group)}</span>${badge(team)}<h3>${esc(team.name)}</h3>
+    <p>${esc(team.alias)}<br>Đội trưởng: ${esc(team.captain)}</p>
+    <div class="team-bottom"><span>${team.players.length} cầu thủ</span><b>Xem đội hình ↗</b></div></button>`).join('') : '<p class="empty">Không tìm thấy đội hoặc cầu thủ phù hợp.</p>';
+}
+
+function renderMatches() {
+  const group = $('#schedule-group').value;
+  const matches = content.matches.filter(match => stage === 'group' ? match.stage === 'group' && (!group || match.group === group) : match.stage !== 'group');
+  $('#matches').innerHTML = matches.map(match => {
+    const home = resolveSide(match.home, content);
+    const away = resolveSide(match.away, content);
+    const winner = resolveWinner(match, content);
+    const tiedWinner = match.status === 'finished' && match.homeScore === match.awayScore && winner !== null ? content.teams.find(team => team.id === winner) : null;
+    return `<article class="match ${match.status === 'finished' ? 'match-finished' : ''}">
+      <div class="match-top"><span class="tag">${esc(matchLabel(match))}</span><span>${STATUS[match.status] || STATUS.scheduled}</span></div>
+      <div class="match-team ${winner !== null && winner === home.id ? 'is-winner' : ''}">${badge(teamFor(home))}<span>${esc(home.name)}</span><span class="score">${score(match.homeScore)}</span></div>
+      <div class="match-team ${winner !== null && winner === away.id ? 'is-winner' : ''}">${badge(teamFor(away))}<span>${esc(away.name)}</span><span class="score">${score(match.awayScore)}</span></div>
+      <div class="match-bottom">◷ ${esc(matchDetails(match))}${tiedWinner ? `<br><strong>Đội thắng: ${esc(tiedWinner.name)}</strong>` : ''}</div></article>`;
+  }).join('') || '<p class="empty">Chưa có trận đấu trong mục này.</p>';
+}
+
+function renderGroups() {
+  $('#group-grid').innerHTML = GROUPS.map(group => {
+    const rows = getStandings(content, group);
+    return `<article class="group"><h3>Bảng ${group}<span>${String(rows.length).padStart(2, '0')} ĐỘI</span></h3>
+      <table><thead><tr><th>Hạng</th><th>Đội bóng</th><th>Trận</th><th>HS</th><th>Điểm</th></tr></thead><tbody>
+      ${rows.map(row => `<tr><td>${row.rank ?? '—'}</td><td><button data-team="${row.team.id}">${esc(row.team.name)}</button></td><td>${row.played}</td><td>${row.gd > 0 ? '+' : ''}${row.gd}</td><td>${row.points}</td></tr>`).join('')}</tbody></table></article>`;
+  }).join('');
+  const rules = content.settings;
+  $('#group-note').textContent = `Điểm thắng / hòa / thua: ${rules.pointsWin} / ${rules.pointsDraw} / ${rules.pointsLoss}. Thứ hạng và suất vào tứ kết do BTC xác nhận; dấu “—” là chưa xác nhận. Điểm chỉ tính từ trận đã kết thúc.`;
+}
+
+function bracketFixture(match, extraClass = '') {
+  if (!match) return '';
+  const home = resolveSide(match.home, content);
+  const away = resolveSide(match.away, content);
+  const winner = resolveWinner(match, content);
+  return `<div class="fixture ${extraClass}"><small>${esc(matchLabel(match))}</small>
+    <p class="${winner !== null && winner === home.id ? 'is-winner' : ''}"><span>${esc(home.name)}</span><b>${score(match.homeScore)}</b></p>
+    <p class="${winner !== null && winner === away.id ? 'is-winner' : ''}"><span>${esc(away.name)}</span><b>${score(match.awayScore)}</b></p>
+    <div class="fixture-details">${esc(matchDetails(match))}<br>${STATUS[match.status] || STATUS.scheduled}</div></div>`;
+}
+
+function renderBracket() {
+  const matches = content.matches;
+  const final = matches.find(match => match.stage === 'final');
+  const winnerId = resolveWinner(final, content);
+  const champion = content.teams.find(team => team.id === winnerId);
+  $('#bracket-content').innerHTML = `<div class="round"><h3>TỨ KẾT</h3>${matches.filter(match => match.stage === 'quarter').map(match => bracketFixture(match)).join('')}</div>
+    <div class="round semis"><h3>BÁN KẾT</h3>${matches.filter(match => match.stage === 'semi').map(match => bracketFixture(match)).join('')}</div>
+    <div class="round finals"><h3>CHUNG KẾT</h3>${bracketFixture(final, 'featured')}${bracketFixture(matches.find(match => match.stage === 'third'), 'bronze')}</div>
+    <div class="champion"><span aria-hidden="true">♜</span><small>${esc(content.settings.title)}</small><h3>${champion ? esc(champion.name) : 'NHÀ VÔ ĐỊCH'}</h3><p>${champion ? 'Chúc mừng nhà vô địch!' : 'Hành trình đang chờ phía trước'}</p></div>`;
+}
+
+function render() {
+  const settings = content.settings;
+  document.title = `${settings.title} — Trung tâm giải đấu`;
+  $('#hero-line1').textContent = settings.heroLine1;
+  $('#hero-line2').textContent = settings.heroLine2;
+  $('#hero-description').textContent = settings.description;
+  $('#tournament-notice').textContent = settings.notice;
+  $('#tournament-notice').hidden = !settings.notice;
+  $('#team-count').textContent = content.teams.length;
+  $('#player-count').textContent = content.teams.reduce((total, team) => total + team.players.length, 0);
+  $('#teams-heading').textContent = `${content.teams.length} đội. Một mục tiêu.`;
+  const updated = content.updatedAt ? new Date(content.updatedAt) : null;
+  $('#data-updated').textContent = updated && !Number.isNaN(updated.getTime()) ? `Cập nhật: ${updated.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}` : 'Dữ liệu đăng ký ban đầu';
+  renderTeams(); renderMatches(); renderGroups(); renderBracket();
+}
+
+async function loadContent() {
+  let lastError;
+  for (const url of ['/api/content', '/content.json']) {
+    try {
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const value = await response.json();
+      if (value.schemaVersion !== 1 || !Array.isArray(value.teams) || !Array.isArray(value.matches) || !value.settings) throw new Error('Dữ liệu giải đấu không hợp lệ.');
+      return value;
+    } catch (error) { lastError = error; }
+  }
+  throw lastError;
+}
+
+loadContent().then(value => { content = value; render(); }).catch(() => {
+  $('#matches').innerHTML = '<p class="empty" role="alert">Không thể tải dữ liệu giải đấu. Vui lòng tải lại trang.</p>';
+  $('#team-grid').innerHTML = '<p class="empty">Dữ liệu đội bóng tạm thời chưa tải được.</p>';
+});
+
+document.addEventListener('click', event => {
+  const button = event.target.closest('[data-team]');
+  if (button && content) showTeam(Number(button.dataset.team));
+  const tab = event.target.closest('[data-stage]');
+  if (tab && content) {
+    stage = tab.dataset.stage;
+    document.querySelectorAll('[data-stage]').forEach(item => item.classList.toggle('active', item === tab));
+    $('#schedule-group').hidden = stage !== 'group';
+    renderMatches();
+  }
+});
+$('#search').addEventListener('input', () => { if (content) renderTeams(); });
+$('#schedule-group').addEventListener('change', () => { if (content) renderMatches(); });
+$('.close').addEventListener('click', () => $('#roster').close());
+$('#roster').addEventListener('click', event => {
+  if (event.target !== $('#roster')) return;
+  const rect = event.target.getBoundingClientRect();
+  if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) event.target.close();
+});

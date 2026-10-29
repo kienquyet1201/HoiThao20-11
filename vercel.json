@@ -1,7 +1,27 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "buildCommand": "",
-  "installCommand": "",
-  "outputDirectory": "dist"
+  "buildCommand": "node scripts/check-build.mjs",
+  "installCommand": "npx --yes pnpm@11.25.0 install --frozen-lockfile",
+  "devCommand": "node scripts/dev-server.mjs",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/*.js": { "includeFiles": "dist/content.json" }
+  },
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/api/auth/:action/:provider", "destination": "/api/auth?authPath=:action/:provider" },
+    { "source": "/api/auth/:action", "destination": "/api/auth?authPath=:action" }
+  ],
+  "headers": [
+    { "source": "/admin", "headers": [
+      { "key": "Cache-Control", "value": "private, no-store" },
+      { "key": "X-Frame-Options", "value": "DENY" },
+      { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://avatars.githubusercontent.com data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'" }
+    ] },
+    { "source": "/(.*)", "headers": [
+      { "key": "X-Content-Type-Options", "value": "nosniff" },
+      { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+    ] }
+  ]
 }
