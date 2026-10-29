@@ -1,10 +1,11 @@
-import { resolveSide, resolveWinner, getStandings, matchLabel } from './model.js';
+import { resolveSide, resolveWinner, getStandings, matchLabel, getScheduledMatches } from './model.js';
 
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const normalize = value => String(value ?? '').toLocaleLowerCase('vi').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
 const GROUPS = ['A', 'B', 'C', 'D'];
 const STATUS = { scheduled: 'CHƯA THI ĐẤU', finished: 'ĐÃ KẾT THÚC', postponed: 'TẠM HOÃN' };
+const INITIAL_SCHEDULE_NOTICE = 'Ngày, giờ, sân thi đấu và kết quả chưa được cung cấp. Các cặp vòng bảng dưới đây được lập từ danh sách bảng đấu; thứ tự thi đấu chờ BTC xác nhận.';
 let content = null;
 let stage = 'group';
 
@@ -56,18 +57,20 @@ function renderTeams() {
 
 function renderMatches() {
   const group = $('#schedule-group').value;
-  const matches = content.matches.filter(match => stage === 'group' ? match.stage === 'group' && (!group || match.group === group) : match.stage !== 'group');
+  const matches = getScheduledMatches(content, { stage, group });
+  $('#schedule-summary').textContent = `${matches.length} trận đã xếp lịch${stage === 'group' && group ? ` · Bảng ${group}` : ''} · Giờ Việt Nam (UTC+7)`;
   $('#matches').innerHTML = matches.map(match => {
     const home = resolveSide(match.home, content);
     const away = resolveSide(match.away, content);
     const winner = resolveWinner(match, content);
     const tiedWinner = match.status === 'finished' && match.homeScore === match.awayScore && winner !== null ? content.teams.find(team => team.id === winner) : null;
-    return `<article class="match ${match.status === 'finished' ? 'match-finished' : ''}">
+    return `<article class="match ${match.status === 'finished' ? 'match-finished' : ''}" data-match-id="${esc(match.id)}">
       <div class="match-top"><span class="tag">${esc(matchLabel(match))}</span><span>${STATUS[match.status] || STATUS.scheduled}</span></div>
+      <div class="match-time-block"><time class="match-date" datetime="${esc(match.date)}">${esc(dateLabel(match.date))}</time><time class="match-kickoff" datetime="${esc(match.date)}T${esc(match.time)}:00+07:00"><strong>${esc(match.time)}</strong><small>giờ Việt Nam</small></time></div>
       <div class="match-team ${winner !== null && winner === home.id ? 'is-winner' : ''}">${badge(teamFor(home))}<span>${esc(home.name)}</span><span class="score">${score(match.homeScore)}</span></div>
       <div class="match-team ${winner !== null && winner === away.id ? 'is-winner' : ''}">${badge(teamFor(away))}<span>${esc(away.name)}</span><span class="score">${score(match.awayScore)}</span></div>
-      <div class="match-bottom">◷ ${esc(matchDetails(match))}${tiedWinner ? `<br><strong>Đội thắng: ${esc(tiedWinner.name)}</strong>` : ''}</div></article>`;
-  }).join('') || '<p class="empty">Chưa có trận đấu trong mục này.</p>';
+      <div class="match-bottom"><span class="match-venue">⌖ ${esc(match.venue || 'Sân chưa công bố')}</span>${tiedWinner ? `<br><strong>Đội thắng: ${esc(tiedWinner.name)}</strong>` : ''}</div></article>`;
+  }).join('') || `<p class="empty">${stage === 'group' ? 'Chưa có trận đấu được xếp đủ ngày và giờ trong bảng này.' : 'Lịch vòng loại trực tiếp chưa được công bố.'}</p>`;
 }
 
 function renderGroups() {
@@ -109,7 +112,9 @@ function render() {
   $('#hero-line1').textContent = settings.heroLine1;
   $('#hero-line2').textContent = settings.heroLine2;
   $('#hero-description').textContent = settings.description;
-  $('#tournament-notice').textContent = settings.notice;
+  $('#tournament-notice').textContent = settings.notice === INITIAL_SCHEDULE_NOTICE && getScheduledMatches(content, { stage: 'all' }).length
+    ? 'Lịch hiển thị các trận đã được xếp ngày và giờ. Thời gian thi đấu theo giờ Việt Nam (UTC+7).'
+    : settings.notice;
   $('#tournament-notice').hidden = !settings.notice;
   $('#team-count').textContent = content.teams.length;
   $('#player-count').textContent = content.teams.reduce((total, team) => total + team.players.length, 0);

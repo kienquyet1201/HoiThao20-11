@@ -1,5 +1,18 @@
 const STAGE_NAMES = { group: 'Vòng bảng', quarter: 'Tứ kết', semi: 'Bán kết', third: 'Tranh giải ba', final: 'Chung kết' };
 
+export function hasSchedule(match) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(match?.date || '') || !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(match?.time || '')) return false;
+  const date = new Date(`${match.date}T00:00:00Z`);
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === match.date;
+}
+
+export function getScheduledMatches(content, { stage = 'group', group = '' } = {}) {
+  return (content?.matches || [])
+    .filter(hasSchedule)
+    .filter(match => stage === 'all' || (stage === 'group' ? match.stage === 'group' && (!group || match.group === group) : match.stage !== 'group'))
+    .sort((a, b) => `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`));
+}
+
 export function matchLabel(match) {
   if (!match) return 'Trận đấu';
   return match.stage === 'group' ? `Bảng ${match.group} · ${match.id}` : `${STAGE_NAMES[match.stage] || 'Trận đấu'}${match.stage === 'quarter' || match.stage === 'semi' ? ` · ${match.id}` : ''}`;
