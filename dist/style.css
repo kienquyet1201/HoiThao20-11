@@ -221,3 +221,5 @@ dialog{max-width:700px;padding:34px;line-height:1.6}
 }
 
 body{font-family:'Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.55}.match-kickoff{font-size:28px!important;font-weight:700;letter-spacing:-.4px}.match-kickoff strong{font-weight:700}.match-time-block{padding:15px 18px;margin:16px 0 20px}.match-date{font-size:15px}.match{padding:22px}.match-team{font-size:16px}.team-card h3{font-size:17px}h2{font-size:30px}h1,h2,h3{font-weight:700}@media(max-width:520px){.match-kickoff{font-size:26px!important}.match-time-block{padding:14px 16px}.match{padding:20px}.match-date{font-size:14px}h2{font-size:27px}}
+
+.match-venue{display:block;font-size:28px;font-weight:600;line-height:1.4;color:var(--ink);overflow-wrap:anywhere}@media(max-width:520px){.match-venue{font-size:26px}}
