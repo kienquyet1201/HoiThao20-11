@@ -1,4 +1,4 @@
-import { resolveSide, resolveWinner, getStandings, matchLabel, getScheduledMatches } from './model.js';
+import { resolveSide, resolveWinner, getStandings, matchLabel, getScheduledMatches, getTopScorers } from './model.js';
 
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -73,6 +73,11 @@ function renderMatches() {
   }).join('') || `<p class="empty">${stage === 'group' ? 'Chưa có trận đấu được xếp đủ ngày và giờ trong bảng này.' : 'Lịch vòng loại trực tiếp chưa được công bố.'}</p>`;
 }
 
+function renderScorers() {
+  const rows = getTopScorers(content);
+  $('#scorer-list').innerHTML = rows.length ? `<div class="scorer-table-wrap"><table class="scorer-table"><caption class="sr-only">Bảng xếp hạng cầu thủ ghi bàn</caption><thead><tr><th scope="col">Hạng</th><th scope="col">Cầu thủ</th><th scope="col">Đội bóng</th><th scope="col">Bàn thắng</th></tr></thead><tbody>${rows.map(row => `<tr class="${row.rank === 1 ? 'scorer-leader' : ''}"><td>${row.rank === 1 ? '<span aria-hidden="true">★ </span>' : ''}${row.rank}</td><th scope="row">${esc(row.player.name)}<small>Số áo: ${esc(row.player.number || '—')}</small></th><td><button data-team="${row.team.id}">${esc(row.team.name)}</button></td><td><strong>${row.goals}</strong></td></tr>`).join('')}</tbody></table></div>` : '<p class="empty">Chưa có dữ liệu ghi bàn. Danh sách sẽ xuất hiện khi BTC cập nhật số bàn thắng của cầu thủ.</p>';
+}
+
 function renderGroups() {
   $('#group-grid').innerHTML = GROUPS.map(group => {
     const rows = getStandings(content, group);
@@ -121,7 +126,7 @@ function render() {
   $('#teams-heading').textContent = `${content.teams.length} đội. Một mục tiêu.`;
   const updated = content.updatedAt ? new Date(content.updatedAt) : null;
   $('#data-updated').textContent = updated && !Number.isNaN(updated.getTime()) ? `Cập nhật: ${updated.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}` : 'Dữ liệu đăng ký ban đầu';
-  renderTeams(); renderMatches(); renderGroups(); renderBracket();
+  renderScorers(); renderTeams(); renderMatches(); renderGroups(); renderBracket();
 }
 
 async function loadContent() {
@@ -140,6 +145,7 @@ async function loadContent() {
 
 loadContent().then(value => { content = value; render(); }).catch(() => {
   $('#matches').innerHTML = '<p class="empty" role="alert">Không thể tải dữ liệu giải đấu. Vui lòng tải lại trang.</p>';
+  $('#scorer-list').innerHTML = '<p class="empty">Không thể tải danh sách vua phá lưới. Vui lòng tải lại trang.</p>';
   $('#team-grid').innerHTML = '<p class="empty">Dữ liệu đội bóng tạm thời chưa tải được.</p>';
 });
 

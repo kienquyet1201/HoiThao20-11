@@ -223,3 +223,15 @@ dialog{max-width:700px;padding:34px;line-height:1.6}
 body{font-family:'Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.55}.match-kickoff{font-size:28px!important;font-weight:700;letter-spacing:-.4px}.match-kickoff strong{font-weight:700}.match-time-block{padding:15px 18px;margin:16px 0 20px}.match-date{font-size:15px}.match{padding:22px}.match-team{font-size:16px}.team-card h3{font-size:17px}h2{font-size:30px}h1,h2,h3{font-weight:700}@media(max-width:520px){.match-kickoff{font-size:26px!important}.match-time-block{padding:14px 16px}.match{padding:20px}.match-date{font-size:14px}h2{font-size:27px}}
 
 .match-venue{display:block;font-size:24px;font-weight:600;line-height:1.4;color:var(--ink);overflow-wrap:anywhere}@media(max-width:520px){.match-venue{font-size:22px}}
+
+/* Top scorers */
+.scorer-table-wrap{overflow-x:auto;border:1px solid var(--line,#ddd);border-radius:12px;background:#fff}
+.scorer-table{width:100%;border-collapse:collapse;text-align:left;font-size:16px;min-width:540px}
+.scorer-table th,.scorer-table td{padding:18px 22px;border-bottom:1px solid var(--line,#eee)}
+.scorer-table thead{background:#f4f5f7;font-size:13px;color:#58616b}
+.scorer-table tbody th{font-weight:600}.scorer-table small{display:block;font-size:13px;font-weight:400;color:#69717b;margin-top:4px}
+.scorer-table td:last-child,.scorer-table th:last-child{text-align:center}.scorer-table td strong{font-size:24px;color:var(--red,#c62828)}
+.scorer-table button{font:inherit;color:inherit;border:0;background:none;text-align:left;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.scorer-leader{background:#fff8ec}.scorer-table tr:last-child>*{border-bottom:0}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:600px){.scorer-table{font-size:14px;min-width:470px}.scorer-table th,.scorer-table td{padding:14px 12px}}

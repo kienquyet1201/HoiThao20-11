@@ -102,3 +102,16 @@ export function getStandings(content, group) {
   rows.forEach(row => { row.gd = row.gf - row.ga; });
   return rows.sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99));
 }
+
+
+export function getTopScorers(content) {
+  const rows = content.teams.flatMap(team => team.players
+    .filter(player => Number.isInteger(player.goals) && player.goals > 0)
+    .map(player => ({ player, team, goals: player.goals })))
+    .sort((a, b) => b.goals - a.goals || a.player.name.localeCompare(b.player.name, 'vi') || a.team.name.localeCompare(b.team.name, 'vi'));
+  let rank = 0;
+  return rows.map((row, index) => {
+    if (index === 0 || row.goals !== rows[index - 1].goals) rank = index + 1;
+    return { ...row, rank };
+  });
+}
