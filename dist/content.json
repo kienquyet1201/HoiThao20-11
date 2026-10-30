@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T07:25:10.500Z",
+  "updatedAt": "2026-10-30T07:46:32.402Z",
   "settings": {
     "title": "PTIT × Rikkei Cup 2026",
     "heroLine1": "CHUNG ĐAM MÊ.",
@@ -1023,9 +1023,9 @@
         "type": "team",
         "teamId": 5
       },
-      "date": "",
-      "time": "",
-      "venue": "",
+      "date": "2026-11-03",
+      "time": "19:30",
+      "venue": "Sân Bóng Cường Quốc",
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
