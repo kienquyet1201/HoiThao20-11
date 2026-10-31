@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-31T16:22:38.315Z",
+  "updatedAt": "2026-10-31T16:23:53.961Z",
   "settings": {
     "title": "PTIT × Rikkei Cup 2026",
     "heroLine1": "CHUNG ĐAM MÊ.",
@@ -24,19 +24,19 @@
         {
           "id": "t0-p1",
           "name": "Đào Nguyễn Lâm Hoàng",
-          "number": null,
+          "number": "1",
           "goals": 0
         },
         {
           "id": "t0-p2",
           "name": "Đặng Kiên Quyết",
-          "number": null,
+          "number": "24",
           "goals": 2
         },
         {
           "id": "t0-p3",
           "name": "Mai Đức Thuy",
-          "number": null,
+          "number": "7",
           "goals": 2
         },
         {
