@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-31T16:21:11.584Z",
+  "updatedAt": "2026-10-31T16:21:34.870Z",
   "settings": {
     "title": "PTIT × Rikkei Cup 2026",
     "heroLine1": "CHUNG ĐAM MÊ.",
@@ -818,7 +818,7 @@
         },
         {
           "id": "t9-p4",
-          "name": "Tạ đình nam khánh",
+          "name": "Tạ Đình Nam Khánh",
           "number": "1",
           "goals": 0
         },
@@ -850,7 +850,7 @@
           "id": "t9-p9",
           "name": "Phạm Viết Toàn",
           "number": "24",
-          "goals": 0
+          "goals": 1
         },
         {
           "id": "t9-p10",
