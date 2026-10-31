@@ -75,7 +75,7 @@ function renderMatches() {
 
 function renderScorers() {
   const rows = getTopScorers(content);
-  $('#scorer-list').innerHTML = rows.length ? `<div class="scorer-table-wrap"><table class="scorer-table"><caption class="sr-only">Bảng xếp hạng cầu thủ ghi bàn</caption><thead><tr><th scope="col">Hạng</th><th scope="col">Cầu thủ</th><th scope="col">Đội bóng</th><th scope="col">Bàn thắng</th></tr></thead><tbody>${rows.map(row => `<tr class="${row.rank === 1 ? 'scorer-leader' : ''}"><td>${row.rank === 1 ? '<span aria-hidden="true">★ </span>' : ''}${row.rank}</td><th scope="row">${esc(row.player.name)}<small>Số áo: ${esc(row.player.number || '—')}</small></th><td><button data-team="${row.team.id}">${esc(row.team.name)}</button></td><td><strong>${row.goals}</strong></td></tr>`).join('')}</tbody></table></div>` : '<p class="empty">Chưa có dữ liệu ghi bàn. Danh sách sẽ xuất hiện khi BTC cập nhật số bàn thắng của cầu thủ.</p>';
+  $('#scorer-list').innerHTML = rows.length ? `<div class="scorer-table-wrap"><table class="scorer-table"><caption class="sr-only">Bảng xếp hạng cầu thủ ghi bàn</caption><thead><tr><th scope="col">Hạng</th><th scope="col">Cầu thủ</th><th scope="col">Đội bóng</th><th scope="col">Bàn thắng</th></tr></thead><tbody>${rows.map(row => `<tr class="${row.rank === 1 ? 'scorer-leader' : ''}"><td>${row.rank === 1 ? '<span aria-hidden="true">★ </span>' : ''}${row.rank}</td><th scope="row">${esc(row.player.name)}</th><td><button data-team="${row.team.id}">${esc(row.team.name)}</button></td><td><strong>${row.goals}</strong></td></tr>`).join('')}</tbody></table></div>` : '<p class="empty">Chưa có dữ liệu ghi bàn. Danh sách sẽ xuất hiện khi BTC cập nhật số bàn thắng của cầu thủ.</p>';
 }
 
 function renderGroups() {
@@ -86,7 +86,7 @@ function renderGroups() {
       ${rows.map(row => `<tr><td>${row.rank ?? '—'}</td><td><button data-team="${row.team.id}">${esc(row.team.name)}</button></td><td>${row.played}</td><td>${row.gd > 0 ? '+' : ''}${row.gd}</td><td>${row.points}</td></tr>`).join('')}</tbody></table></article>`;
   }).join('');
   const rules = content.settings;
-  $('#group-note').textContent = `Điểm thắng / hòa / thua: ${rules.pointsWin} / ${rules.pointsDraw} / ${rules.pointsLoss}. Thứ hạng và suất vào tứ kết do BTC xác nhận; dấu “—” là chưa xác nhận. Điểm chỉ tính từ trận đã kết thúc.`;
+  $('#group-note').textContent = `Điểm thắng / hòa / thua: ${rules.pointsWin} / ${rules.pointsDraw} / ${rules.pointsLoss}. Xếp hạng theo điểm → hiệu số → bàn thắng; bằng cả ba chỉ số thì đồng hạng. Dấu “—” là chưa thi đấu. Suất vào tứ kết do BTC xác nhận. Điểm chỉ tính từ trận đã kết thúc.`;
 }
 
 function bracketFixture(match, extraClass = '') {

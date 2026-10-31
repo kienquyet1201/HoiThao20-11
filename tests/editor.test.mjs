@@ -58,7 +58,9 @@ test('only finished group scores count, without inferring qualifiers', () => {
   const rows = getStandings(c, 'A');
   assert.equal(rows.find(r => r.team.id === 0).points, 3);
   assert.equal(rows.find(r => r.team.id === 0).gd, 2);
-  assert.ok(rows.every(r => r.rank === null));
+  assert.equal(rows.find(r => r.team.id === 0).rank, 1);
+  assert.equal(rows.find(r => r.team.id === 1).rank, 3);
+  assert.equal(c.qualifiers.A.first, null);
 });
 
 test('unauthenticated saves fail before GitHub writes', async () => {

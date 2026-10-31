@@ -72,10 +72,9 @@ export function resolveWinner(match, content) {
 }
 
 export function getStandings(content, group) {
-  const qualifiers = content?.qualifiers?.[group] || {};
   const rows = (content?.teams || []).filter(team => team.group === group).map(team => ({
     team, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0,
-    rank: qualifiers.first === team.id ? 1 : qualifiers.second === team.id ? 2 : null
+    rank: null
   }));
   const byId = new Map(rows.map(row => [row.team.id, row]));
   const points = {
@@ -100,7 +99,14 @@ export function getStandings(content, group) {
     }
   }
   rows.forEach(row => { row.gd = row.gf - row.ga; });
-  return rows.sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99));
+  const compare = (a, b) => b.points - a.points || b.gd - a.gd || b.gf - a.gf;
+  rows.sort((a, b) => compare(a, b) || a.team.id - b.team.id);
+  if (rows.some(row => row.played > 0)) {
+    rows.forEach((row, index) => {
+      row.rank = index > 0 && compare(row, rows[index - 1]) === 0 ? rows[index - 1].rank : index + 1;
+    });
+  }
+  return rows;
 }
 
 
