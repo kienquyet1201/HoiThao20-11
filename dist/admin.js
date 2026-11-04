@@ -4,7 +4,7 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const GROUPS = ['A', 'B', 'C', 'D'];
 const STAGES = { group: 'Vòng bảng', quarter: 'Tứ kết', semi: 'Bán kết', third: 'Tranh giải ba', final: 'Chung kết' };
-const STATUS = { scheduled: 'Chưa thi đấu', finished: 'Đã kết thúc', postponed: 'Hoãn thi đấu' };
+const STATUS = { scheduled: 'Chưa thi đấu', live: 'LIVE · Đang thi đấu', finished: 'Đã kết thúc', postponed: 'Hoãn thi đấu' };
 const KNOCKOUT_ORDER = ['TK1', 'TK2', 'TK3', 'TK4', 'BK1', 'BK2', 'THIRD', 'FINAL'];
 const TABS = [['teams', 'Đội & cầu thủ'], ['matches', 'Lịch & kết quả'], ['groups', 'Bảng & nhánh đấu'], ['settings', 'Thông tin giải']];
 const state = { user: null, content: null, sha: null, dirty: false, saving: false, tab: 'teams', teamId: 0, matchStage: 'all', matchOrder: 'asc', conflict: false };
@@ -92,7 +92,7 @@ function winnerOptions(match) {
 
 function renderMatch(match) {
   const home = sideOf(match.home), away = sideOf(match.away);
-  return `<article class="match-card" data-fixture="${esc(match.id)}"><div class="match-card-heading"><span>${esc(matchLabel(match))}</span><span class="match-code">${esc(STATUS[match.status] || STATUS.scheduled)}</span></div><div class="match-card-body"><div class="opponents"><span class="home">${esc(home.name)}</span><span class="versus">VS</span><span class="away">${esc(away.name)}</span></div><div class="form-grid">${textField('Ngày thi đấu', match.date, `data-match-id="${esc(match.id)}" data-match-field="date"`, { type: 'date' })}${textField('Giờ thi đấu', match.time, `data-match-id="${esc(match.id)}" data-match-field="time"`, { type: 'time' })}${textField('Sân / địa điểm', match.venue, `data-match-id="${esc(match.id)}" data-match-field="venue" maxlength="160"`, { wide: true })}<label class="field wide"><span>Trạng thái trận đấu</span><select data-match-id="${esc(match.id)}" data-match-field="status">${Object.entries(STATUS).map(([value, label]) => option(value, label, match.status)).join('')}</select></label></div><div class="score-fields">${textField('Bàn thắng đội bên trái', match.homeScore, `data-match-id="${esc(match.id)}" data-match-field="homeScore" min="0" max="999" step="1"`, { type: 'number' })}${textField('Bàn thắng đội bên phải', match.awayScore, `data-match-id="${esc(match.id)}" data-match-field="awayScore" min="0" max="999" step="1"`, { type: 'number' })}</div>${match.stage === 'group' ? '' : `<label class="field winner-field" ${match.status !== 'finished' || match.homeScore === null || match.awayScore === null || match.homeScore !== match.awayScore ? 'hidden' : ''}><span>Đội đi tiếp / thắng luân lưu</span><select data-match-id="${esc(match.id)}" data-match-field="winnerTeamId">${winnerOptions(match)}</select><small>Khi tỷ số hòa, bạn cần xác nhận đội thắng để cập nhật nhánh tiếp theo.</small></label>`}</div></article>`;
+  return `<article class="match-card" data-fixture="${esc(match.id)}"><div class="match-card-heading"><span>${esc(matchLabel(match))}</span><span class="match-code">${esc(STATUS[match.status] || STATUS.scheduled)}</span></div><div class="match-card-body"><div class="opponents"><span class="home">${esc(home.name)}</span><span class="versus">VS</span><span class="away">${esc(away.name)}</span></div><div class="form-grid">${textField('Ngày thi đấu', match.date, `data-match-id="${esc(match.id)}" data-match-field="date"`, { type: 'date' })}${textField('Giờ thi đấu', match.time, `data-match-id="${esc(match.id)}" data-match-field="time"`, { type: 'time' })}${textField('Sân / địa điểm', match.venue, `data-match-id="${esc(match.id)}" data-match-field="venue" maxlength="160"`, { wide: true })}<label class="field wide"><span>Trạng thái trận đấu</span><select data-match-id="${esc(match.id)}" data-match-field="status">${Object.entries(STATUS).map(([value, label]) => option(value, label, match.status)).join('')}</select></label></div>${textField('Phút thi đấu LIVE (BTC cập nhật thủ công)', match.liveMinute, `data-match-id="${esc(match.id)}" data-match-field="liveMinute" min="0" max="150" step="1"`, { type: 'number' })}<div class="score-fields">${textField('Bàn thắng đội bên trái', match.homeScore, `data-match-id="${esc(match.id)}" data-match-field="homeScore" min="0" max="999" step="1"`, { type: 'number' })}${textField('Bàn thắng đội bên phải', match.awayScore, `data-match-id="${esc(match.id)}" data-match-field="awayScore" min="0" max="999" step="1"`, { type: 'number' })}</div>${match.stage === 'group' ? '' : `<label class="field winner-field" ${match.status !== 'finished' || match.homeScore === null || match.awayScore === null || match.homeScore !== match.awayScore ? 'hidden' : ''}><span>Đội đi tiếp / thắng luân lưu</span><select data-match-id="${esc(match.id)}" data-match-field="winnerTeamId">${winnerOptions(match)}</select><small>Khi tỷ số hòa, bạn cần xác nhận đội thắng để cập nhật nhánh tiếp theo.</small></label>`}</div></article>`;
 }
 
 function renderMatches() {
@@ -203,9 +203,10 @@ function resetChangedKnockout(previous, exceptId = null) {
     if (!match || id === exceptId || !previous[id]) continue;
     const current = [sideOf(match.home).id, sideOf(match.away).id];
     if (current.some((teamId, index) => teamId !== previous[id][index])) {
-      const hadResult = match.homeScore !== null || match.awayScore !== null || match.status === 'finished' || match.winnerTeamId !== null;
+      const hadResult = match.homeScore !== null || match.awayScore !== null || ['finished', 'live'].includes(match.status) || match.winnerTeamId !== null;
       match.homeScore = null; match.awayScore = null; match.winnerTeamId = null;
-      if (match.status === 'finished') match.status = 'scheduled';
+      if (['finished', 'live'].includes(match.status)) match.status = 'scheduled';
+      match.liveMinute = null;
       if (hadResult) reset++;
     }
   }
@@ -245,7 +246,7 @@ function updateField(input) {
     if (!match) return;
     const previous = participants();
     const field = input.dataset.matchField;
-    match[field] = ['homeScore', 'awayScore', 'winnerTeamId'].includes(field) ? (input.value === '' ? null : Number(input.value)) : input.value;
+    match[field] = ['homeScore', 'awayScore', 'winnerTeamId', 'liveMinute'].includes(field) ? (input.value === '' ? null : Number(input.value)) : input.value;
     if (match.stage !== 'group' && ['homeScore', 'awayScore', 'status'].includes(field)) {
       const home = sideOf(match.home), away = sideOf(match.away);
       if (match.status === 'finished' && match.homeScore !== null && match.awayScore !== null && match.homeScore !== match.awayScore) match.winnerTeamId = match.homeScore > match.awayScore ? home.id : away.id;

@@ -1,3 +1,4 @@
+import { renderMatchCards, renderScorerCards, renderStandingCards, renderBracketTree } from './tournament-ui.js';
 import { resolveSide, resolveWinner, getStandings, matchLabel, getScheduledMatches, getTopScorers } from './model.js';
 
 const $ = selector => document.querySelector(selector);
@@ -59,57 +60,18 @@ function renderMatches() {
   const group = $('#schedule-group').value;
   const matches = getScheduledMatches(content, { stage, group, order: $('#schedule-sort').value });
   $('#schedule-summary').textContent = `${matches.length} trận đã xếp lịch${stage === 'group' && group ? ` · Bảng ${group}` : ''} · Giờ Việt Nam (UTC+7)`;
-  $('#matches').innerHTML = matches.map(match => {
-    const home = resolveSide(match.home, content);
-    const away = resolveSide(match.away, content);
-    const winner = resolveWinner(match, content);
-    const tiedWinner = match.status === 'finished' && match.homeScore === match.awayScore && winner !== null ? content.teams.find(team => team.id === winner) : null;
-    return `<article class="match ${match.status === 'finished' ? 'match-finished' : ''}" data-match-id="${esc(match.id)}">
-      <div class="match-top"><span class="tag">${esc(matchLabel(match))}</span><span>${STATUS[match.status] || STATUS.scheduled}</span></div>
-      <div class="match-time-block"><time class="match-date" datetime="${esc(match.date)}">${esc(dateLabel(match.date))}</time><time class="match-kickoff" datetime="${esc(match.date)}T${esc(match.time)}:00+07:00"><strong>${esc(match.time)}</strong><small>giờ Việt Nam</small></time></div>
-      <div class="match-team ${winner !== null && winner === home.id ? 'is-winner' : ''}">${badge(teamFor(home))}<span>${esc(home.name)}</span><span class="score">${score(match.homeScore)}</span></div>
-      <div class="match-team ${winner !== null && winner === away.id ? 'is-winner' : ''}">${badge(teamFor(away))}<span>${esc(away.name)}</span><span class="score">${score(match.awayScore)}</span></div>
-      <div class="match-bottom"><span class="match-venue">⌖ ${esc(match.venue || 'Sân chưa công bố')}</span>${tiedWinner ? `<br><strong>Đội thắng: ${esc(tiedWinner.name)}</strong>` : ''}</div></article>`;
-  }).join('') || `<p class="empty">${stage === 'group' ? 'Chưa có trận đấu được xếp đủ ngày và giờ trong bảng này.' : 'Lịch vòng loại trực tiếp chưa được công bố.'}</p>`;
+  $('#matches').innerHTML = renderMatchCards(content, matches) || '<p class="empty">Chưa có trận đấu được xếp đủ ngày và giờ.</p>';
 }
 
-function renderScorers() {
-  const rows = getTopScorers(content);
-  $('#scorer-list').innerHTML = rows.length ? `<div class="scorer-table-wrap"><table class="scorer-table"><caption class="sr-only">Bảng xếp hạng cầu thủ ghi bàn</caption><thead><tr><th scope="col">Hạng</th><th scope="col">Cầu thủ</th><th scope="col">Đội bóng</th><th scope="col">Bàn thắng</th></tr></thead><tbody>${rows.map(row => `<tr class="${row.rank === 1 ? 'scorer-leader' : ''}"><td>${row.rank === 1 ? '<span aria-hidden="true">★ </span>' : ''}${row.rank}</td><th scope="row">${esc(row.player.name)}</th><td><button data-team="${row.team.id}">${esc(row.team.name)}</button></td><td><strong>${row.goals}</strong></td></tr>`).join('')}</tbody></table></div>` : '<p class="empty">Chưa có dữ liệu ghi bàn. Danh sách sẽ xuất hiện khi BTC cập nhật số bàn thắng của cầu thủ.</p>';
-}
+function renderScorers() { $('#scorer-list').innerHTML = renderScorerCards(content); }
 
 function renderGroups() {
-  $('#group-grid').innerHTML = GROUPS.map(group => {
-    const rows = getStandings(content, group);
-    return `<article class="group"><h3>Bảng ${group}<span>${String(rows.length).padStart(2, '0')} ĐỘI</span></h3>
-      <table><thead><tr><th>Hạng</th><th>Đội bóng</th><th>Trận</th><th>HS</th><th>Điểm</th></tr></thead><tbody>
-      ${rows.map(row => `<tr><td>${row.rank ?? '—'}</td><td><button data-team="${row.team.id}">${esc(row.team.name)}</button></td><td>${row.played}</td><td>${row.gd > 0 ? '+' : ''}${row.gd}</td><td>${row.points}</td></tr>`).join('')}</tbody></table></article>`;
-  }).join('');
+  $('#group-grid').innerHTML = renderStandingCards(content);
   const rules = content.settings;
   $('#group-note').textContent = `Điểm thắng / hòa / thua: ${rules.pointsWin} / ${rules.pointsDraw} / ${rules.pointsLoss}. Xếp hạng theo điểm → hiệu số → bàn thắng; bằng cả ba chỉ số thì đồng hạng. Dấu “—” là chưa thi đấu. Suất vào tứ kết do BTC xác nhận. Điểm chỉ tính từ trận đã kết thúc.`;
 }
 
-function bracketFixture(match, extraClass = '') {
-  if (!match) return '';
-  const home = resolveSide(match.home, content);
-  const away = resolveSide(match.away, content);
-  const winner = resolveWinner(match, content);
-  return `<div class="fixture ${extraClass}"><small>${esc(matchLabel(match))}</small>
-    <p class="${winner !== null && winner === home.id ? 'is-winner' : ''}"><span>${esc(home.name)}</span><b>${score(match.homeScore)}</b></p>
-    <p class="${winner !== null && winner === away.id ? 'is-winner' : ''}"><span>${esc(away.name)}</span><b>${score(match.awayScore)}</b></p>
-    <div class="fixture-details">${esc(matchDetails(match))}<br>${STATUS[match.status] || STATUS.scheduled}</div></div>`;
-}
-
-function renderBracket() {
-  const matches = content.matches;
-  const final = matches.find(match => match.stage === 'final');
-  const winnerId = resolveWinner(final, content);
-  const champion = content.teams.find(team => team.id === winnerId);
-  $('#bracket-content').innerHTML = `<div class="round"><h3>TỨ KẾT</h3>${matches.filter(match => match.stage === 'quarter').map(match => bracketFixture(match)).join('')}</div>
-    <div class="round semis"><h3>BÁN KẾT</h3>${matches.filter(match => match.stage === 'semi').map(match => bracketFixture(match)).join('')}</div>
-    <div class="round finals"><h3>CHUNG KẾT</h3>${bracketFixture(final, 'featured')}${bracketFixture(matches.find(match => match.stage === 'third'), 'bronze')}</div>
-    <div class="champion"><span aria-hidden="true">♜</span><small>${esc(content.settings.title)}</small><h3>${champion ? esc(champion.name) : 'NHÀ VÔ ĐỊCH'}</h3><p>${champion ? 'Chúc mừng nhà vô địch!' : 'Hành trình đang chờ phía trước'}</p></div>`;
-}
+function renderBracket() { $('#bracket-content').innerHTML = renderBracketTree(content); }
 
 function render() {
   const settings = content.settings;
@@ -151,7 +113,7 @@ loadContent().then(value => { content = value; render(); }).catch(() => {
 
 document.addEventListener('click', event => {
   const button = event.target.closest('[data-team]');
-  if (button && content) showTeam(Number(button.dataset.team));
+  if (button && button.dataset.team !== '' && content) showTeam(Number(button.dataset.team));
   const tab = event.target.closest('[data-stage]');
   if (tab && content) {
     stage = tab.dataset.stage;

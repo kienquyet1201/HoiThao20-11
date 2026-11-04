@@ -37,7 +37,7 @@ test('invalid scores, dates, ranks, duplicate players and changed knockout topol
     c => { c.qualifiers.A.first = 8; },
     c => { c.teams[1].players[0].id = c.teams[0].players[0].id; },
     c => { c.matches.find(m => m.id === 'TK1').home = { type: 'team', teamId: 1 }; },
-    c => { c.matches[0].status = 'finished'; c.matches[0].homeScore = 0; },
+    c => { c.matches[0].status = 'finished'; c.matches[0].homeScore = 0; c.matches[0].awayScore = null; },
   ]) { const content = clone(); mutate(content); assert.equal(validateContent(content).ok, false); }
 });
 
