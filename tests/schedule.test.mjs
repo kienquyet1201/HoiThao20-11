@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { hasSchedule, getScheduledMatches } from '../dist/model.js';
+import { hasSchedule, getScheduledMatches, sortMatchesByTime } from '../dist/model.js';
 
 const fixture = (id, date, time, extra = {}) => ({ id, stage: 'group', group: 'A', date, time, status: 'scheduled', ...extra });
 
@@ -26,4 +26,14 @@ test('knockout tab hides unset slots and retains finished or postponed assigned 
 test('same-time slots keep their original order', () => {
   const matches = [fixture('C1', '2026-11-01', '18:00', { group: 'C' }), fixture('A1', '2026-11-01', '18:00')];
   assert.deepEqual(getScheduledMatches({ matches }).map(m => m.id), ['C1', 'A1']);
+});
+
+
+test('time order works both ways without mutating fixtures and leaves unset slots last', () => {
+ const a=fixture('a','2026-11-05','18:00'), b=fixture('b','2026-11-05','19:30'), c=fixture('c','','');
+ const original=[c,b,a];
+ assert.deepEqual(sortMatchesByTime(original).map(m=>m.id),['a','b','c']);
+ assert.deepEqual(sortMatchesByTime(original,'desc').map(m=>m.id),['b','a','c']);
+ assert.deepEqual(original.map(m=>m.id),['c','b','a']);
+ assert.deepEqual(getScheduledMatches({matches:original},{order:'desc'}).map(m=>m.id),['b','a']);
 });

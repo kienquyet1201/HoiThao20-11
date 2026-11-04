@@ -250,3 +250,5 @@ main{max-width:none;width:100%;padding-left:clamp(16px,4vw,80px);padding-right:c
 .scorer-table button{text-decoration:none}
 .scorer-table button:hover{color:var(--red,#c62828)}
 @media(max-width:600px){.scorer-table tbody th{font-size:18px}}
+
+.schedule-sort{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink)}.schedule-sort select{font:inherit;padding:10px 12px;background:white;border:1px solid var(--line);border-radius:6px}.toolbar{flex-wrap:wrap;gap:14px}@media(max-width:600px){.schedule-sort{width:100%;justify-content:space-between}.schedule-sort select{flex:1}}

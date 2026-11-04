@@ -1,4 +1,4 @@
-import { resolveSide } from './model.js';
+import { resolveSide, sortMatchesByTime } from './model.js';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -7,7 +7,7 @@ const STAGES = { group: 'Vòng bảng', quarter: 'Tứ kết', semi: 'Bán kết
 const STATUS = { scheduled: 'Chưa thi đấu', finished: 'Đã kết thúc', postponed: 'Hoãn thi đấu' };
 const KNOCKOUT_ORDER = ['TK1', 'TK2', 'TK3', 'TK4', 'BK1', 'BK2', 'THIRD', 'FINAL'];
 const TABS = [['teams', 'Đội & cầu thủ'], ['matches', 'Lịch & kết quả'], ['groups', 'Bảng & nhánh đấu'], ['settings', 'Thông tin giải']];
-const state = { user: null, content: null, sha: null, dirty: false, saving: false, tab: 'teams', teamId: 0, matchStage: 'all', conflict: false };
+const state = { user: null, content: null, sha: null, dirty: false, saving: false, tab: 'teams', teamId: 0, matchStage: 'all', matchOrder: 'asc', conflict: false };
 let toastTimer;
 
 function toast(message, error = false) {
@@ -96,8 +96,8 @@ function renderMatch(match) {
 }
 
 function renderMatches() {
-  const matches = state.content.matches.filter(match => state.matchStage === 'all' || match.stage === state.matchStage);
-  return `<div class="notice">Nhập ngày, giờ, sân và kết quả thực tế. Để trống thông tin chưa công bố. Chỉ trận có trạng thái “Đã kết thúc” được tính vào bảng thành tích.</div><div class="match-toolbar"><p>${matches.length} trận đang hiển thị</p><label class="field"><span>Lọc vòng đấu</span><select id="match-stage" class="control">${option('all', 'Tất cả vòng đấu', state.matchStage)}${Object.entries(STAGES).map(([value, label]) => option(value, label, state.matchStage)).join('')}</select></label></div><div class="match-grid">${matches.map(renderMatch).join('')}</div>`;
+  const matches = sortMatchesByTime(state.content.matches.filter(match => state.matchStage === 'all' || match.stage === state.matchStage), state.matchOrder);
+  return `<div class="notice">Nhập ngày, giờ, sân và kết quả thực tế. Để trống thông tin chưa công bố. Chỉ trận có trạng thái “Đã kết thúc” được tính vào bảng thành tích.</div><div class="match-toolbar"><p>${matches.length} trận đang hiển thị · Trận chưa đủ ngày giờ ở cuối</p><label class="field"><span>Sắp xếp thời gian</span><select id="match-order">${option('asc', 'Sớm đến muộn', state.matchOrder)}${option('desc', 'Muộn đến sớm', state.matchOrder)}</select></label><label class="field"><span>Lọc vòng đấu</span><select id="match-stage" class="control">${option('all', 'Tất cả vòng đấu', state.matchStage)}${Object.entries(STAGES).map(([value, label]) => option(value, label, state.matchStage)).join('')}</select></label></div><div class="match-grid">${matches.map(renderMatch).join('')}</div>`;
 }
 
 function qualifierSelect(group, rank, label) {
@@ -401,6 +401,7 @@ document.addEventListener('input', event => {
 document.addEventListener('change', event => {
   const input = event.target;
   if (input.id === 'team-picker') { state.teamId = Number(input.value); renderMain(); return; }
+  if (input.id === 'match-order') { state.matchOrder = input.value; renderMain(); return; }
   if (input.id === 'match-stage') { state.matchStage = input.value; renderMain(); return; }
   if (input.matches('select')) updateField(input);
 });

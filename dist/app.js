@@ -57,7 +57,7 @@ function renderTeams() {
 
 function renderMatches() {
   const group = $('#schedule-group').value;
-  const matches = getScheduledMatches(content, { stage, group });
+  const matches = getScheduledMatches(content, { stage, group, order: $('#schedule-sort').value });
   $('#schedule-summary').textContent = `${matches.length} trận đã xếp lịch${stage === 'group' && group ? ` · Bảng ${group}` : ''} · Giờ Việt Nam (UTC+7)`;
   $('#matches').innerHTML = matches.map(match => {
     const home = resolveSide(match.home, content);
@@ -168,3 +168,5 @@ $('#roster').addEventListener('click', event => {
   const rect = event.target.getBoundingClientRect();
   if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) event.target.close();
 });
+
+$('#schedule-sort').addEventListener('change', () => { if (content) renderMatches(); });

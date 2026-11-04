@@ -6,11 +6,11 @@ export function hasSchedule(match) {
   return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === match.date;
 }
 
-export function getScheduledMatches(content, { stage = 'group', group = '' } = {}) {
-  return (content?.matches || [])
+export function getScheduledMatches(content, { stage = 'group', group = '', order = 'asc' } = {}) {
+  return sortMatchesByTime((content?.matches || [])
     .filter(hasSchedule)
     .filter(match => stage === 'all' || (stage === 'group' ? match.stage === 'group' && (!group || match.group === group) : match.stage !== 'group'))
-    .sort((a, b) => `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`));
+    , order);
 }
 
 export function matchLabel(match) {
@@ -119,5 +119,16 @@ export function getTopScorers(content) {
   return rows.map((row, index) => {
     if (index === 0 || row.goals !== rows[index - 1].goals) rank = index + 1;
     return { ...row, rank };
+  });
+}
+
+
+export function sortMatchesByTime(matches, order = 'asc') {
+  const direction = order === 'desc' ? -1 : 1;
+  return [...matches].sort((a, b) => {
+    const aReady = hasSchedule(a), bReady = hasSchedule(b);
+    if (aReady !== bReady) return aReady ? -1 : 1;
+    if (!aReady) return 0;
+    return direction * `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`);
   });
 }
