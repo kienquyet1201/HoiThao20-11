@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-04T01:45:04.607Z",
+  "updatedAt": "2026-11-04T01:45:45.222Z",
   "settings": {
     "title": "PTIT × Rikkei Cup 2026",
     "heroLine1": "CHUNG ĐAM MÊ.",
@@ -280,7 +280,7 @@
           "id": "t3-p2",
           "name": "Trịnh Khắc Linh",
           "number": null,
-          "goals": 0
+          "goals": 2
         },
         {
           "id": "t3-p3",
@@ -298,7 +298,7 @@
           "id": "t3-p5",
           "name": "Nguyễn Đức Thịnh",
           "number": null,
-          "goals": 0
+          "goals": 1
         },
         {
           "id": "t3-p6",
@@ -352,7 +352,7 @@
           "id": "t3-p14",
           "name": "Hồ Xuân Hùng",
           "number": null,
-          "goals": 0
+          "goals": 1
         }
       ]
     },
