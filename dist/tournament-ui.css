@@ -10,3 +10,5 @@ body{background:var(--paper);color:var(--ink)}header,footer{background:#0d161b;b
 
 .tabs button:not(.active){background:#101b21;color:#cbd5e1}.tabs button:not(.active):hover{background:#1d2d33}nav a:hover{color:#b7f56b}
 .stats{background:#101b21;border:1px solid var(--line);border-radius:16px}.stats strong{color:#f1f5f9}
+
+.ui-scorer-hero:has(.ui-real-portrait){min-height:340px}.ui-scorer-hero img.ui-real-portrait{height:100%;width:52%;max-width:none;object-fit:contain;object-position:right bottom}.ui-scorer-hero:has(.ui-real-portrait):after{background:linear-gradient(90deg,#182b1e 8%,#182b1eaa 45%,transparent 66%)}@media(max-width:600px){.ui-scorer-hero:has(.ui-real-portrait){min-height:310px}.ui-scorer-hero img.ui-real-portrait{width:58%}.ui-scorer-hero:has(.ui-real-portrait) .ui-scorer-copy{max-width:70%}}
