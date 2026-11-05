@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-04T03:21:11.619Z",
+  "updatedAt": "2026-11-05T04:03:52.262Z",
   "settings": {
     "title": "PTIT × Rikkei Cup 2026",
     "heroLine1": "CHUNG ĐAM MÊ.",
@@ -1330,7 +1330,7 @@
         "group": "C",
         "rank": 2
       },
-      "date": "2026-11-11",
+      "date": "2026-11-13",
       "time": "18:15",
       "venue": "Sân Bóng Cường Quốc",
       "status": "scheduled",
@@ -1376,8 +1376,8 @@
         "group": "B",
         "rank": 2
       },
-      "date": "2026-11-10",
-      "time": "19:45",
+      "date": "2026-11-12",
+      "time": "18:15",
       "venue": "Sân Bóng Cường Quốc",
       "status": "scheduled",
       "liveMinute": null,
@@ -1399,7 +1399,7 @@
         "group": "A",
         "rank": 2
       },
-      "date": "2026-11-11",
+      "date": "2026-11-13",
       "time": "19:45",
       "venue": "Sân Bóng Cường Quốc",
       "status": "scheduled",
@@ -1420,7 +1420,7 @@
         "type": "winner",
         "matchId": "TK2"
       },
-      "date": "2026-11-12",
+      "date": "2026-11-15",
       "time": "18:15",
       "venue": "Sân Bóng Cường Quốc",
       "status": "scheduled",
@@ -1441,7 +1441,7 @@
         "type": "winner",
         "matchId": "TK4"
       },
-      "date": "2026-11-12",
+      "date": "2026-11-15",
       "time": "19:15",
       "venue": "Sân Bóng Cường Quốc",
       "status": "scheduled",
