@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-06T16:38:57.592Z",
+  "updatedAt": "2026-11-08T14:39:03.107Z",
   "settings": {
     "title": "PTIT × Rikkei Cup 2026",
     "heroLine1": "CHUNG ĐAM MÊ.",
@@ -1121,10 +1121,10 @@
       "date": "2026-11-08",
       "time": "18:00",
       "venue": "Sân Bóng Cường Quốc",
-      "status": "scheduled",
+      "status": "finished",
       "liveMinute": null,
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 2,
+      "awayScore": 4,
       "winnerTeamId": null
     },
     {
@@ -1184,10 +1184,10 @@
       "date": "2026-11-07",
       "time": "19:30",
       "venue": "Sân Bóng Cường Quốc",
-      "status": "scheduled",
+      "status": "finished",
       "liveMinute": null,
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 5,
+      "awayScore": 0,
       "winnerTeamId": null
     },
     {
@@ -1226,10 +1226,10 @@
       "date": "2026-11-07",
       "time": "18:00",
       "venue": "Sân Bóng Cường Quốc",
-      "status": "scheduled",
+      "status": "finished",
       "liveMinute": null,
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 6,
+      "awayScore": 0,
       "winnerTeamId": null
     },
     {
@@ -1310,10 +1310,10 @@
       "date": "2026-11-08",
       "time": "19:30",
       "venue": "Sân Bóng Cường Quốc",
-      "status": "scheduled",
+      "status": "finished",
       "liveMinute": null,
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 7,
+      "awayScore": 3,
       "winnerTeamId": null
     },
     {
