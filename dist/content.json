@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-08T14:43:41.407Z",
+  "updatedAt": "2026-11-08T14:45:12.305Z",
   "settings": {
     "title": "PTIT × Rikkei Cup 2026",
     "heroLine1": "CHUNG ĐAM MÊ.",
@@ -1496,19 +1496,19 @@
   "qualifiers": {
     "A": {
       "first": 0,
-      "second": null
+      "second": 2
     },
     "B": {
       "first": 3,
-      "second": null
+      "second": 4
     },
     "C": {
-      "first": null,
-      "second": null
+      "first": 6,
+      "second": 7
     },
     "D": {
-      "first": null,
-      "second": null
+      "first": 10,
+      "second": 11
     }
   }
 }
