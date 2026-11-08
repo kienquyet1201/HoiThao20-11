@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-08T14:39:55.095Z",
+  "updatedAt": "2026-11-08T14:40:35.912Z",
   "settings": {
     "title": "PTIT × Rikkei Cup 2026",
     "heroLine1": "CHUNG ĐAM MÊ.",
@@ -381,7 +381,7 @@
           "id": "t4-p3",
           "name": "Cáp Văn Mạnh Duy",
           "number": "28",
-          "goals": 0
+          "goals": 1
         },
         {
           "id": "t4-p4",
@@ -447,7 +447,7 @@
           "id": "t4-p14",
           "name": "Nguyễn Đình Mạnh",
           "number": "22",
-          "goals": 0
+          "goals": 4
         }
       ]
     },
