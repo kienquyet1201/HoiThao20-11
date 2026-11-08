@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-08T14:42:13.719Z",
+  "updatedAt": "2026-11-08T14:43:25.948Z",
   "settings": {
     "title": "PTIT × Rikkei Cup 2026",
     "heroLine1": "CHUNG ĐAM MÊ.",
@@ -897,7 +897,7 @@
           "id": "t10-p1",
           "name": "Bùi Hữu Nhân",
           "number": "08",
-          "goals": 1
+          "goals": 3
         },
         {
           "id": "t10-p2",
@@ -921,7 +921,7 @@
           "id": "t10-p5",
           "name": "Trần Võ Huy Thành",
           "number": "99",
-          "goals": 1
+          "goals": 5
         },
         {
           "id": "t10-p6",
@@ -957,7 +957,7 @@
           "id": "t10-p11",
           "name": "Ngô Xuân Tài",
           "number": "17",
-          "goals": 0
+          "goals": 1
         },
         {
           "id": "t10-p12",
