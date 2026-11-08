@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-08T14:41:44.562Z",
+  "updatedAt": "2026-11-08T14:42:13.719Z",
   "settings": {
     "title": "PTIT × Rikkei Cup 2026",
     "heroLine1": "CHUNG ĐAM MÊ.",
@@ -120,13 +120,13 @@
           "id": "t1-p2",
           "name": "Đoàn Ngọc Bảo",
           "number": "22",
-          "goals": 0
+          "goals": 1
         },
         {
           "id": "t1-p3",
           "name": "Phạm Hữu Chinh",
           "number": "29",
-          "goals": 1
+          "goals": 2
         },
         {
           "id": "t1-p4",
